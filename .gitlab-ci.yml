@@ -49,8 +49,7 @@ staging:
   script:
     # rsync built files to the docker build stage
     - rsync -ave "ssh -p $VPS_PORT_STAGING" --delete build $VPS_USER@$VPS_IP_STAGING:/home/$VPS_USER/docker/
-    # build docker with nginx config and run the docker nginx container
-    #- ssh -p $VPS_PORT_STAGING $VPS_USER@$VPS_IP_STAGING "cd docker/ && docker stop nginx || docker build --rm -f Dockerfile -t todo:staging . && docker run --rm -d -p 80:80 --name nginx todo:staging"
+    # run docker-compose with nginx
     - ssh -p $VPS_PORT_STAGING $VPS_USER@$VPS_IP_STAGING "cd docker/ && docker-compose down && docker-compose up -d"
   cache: {}
   only:
