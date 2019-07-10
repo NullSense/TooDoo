@@ -36,7 +36,7 @@ staging:
     # install missing dependencies for running web-app
     - 'which ssh-agent || ( apk update && apk add openssh-client )'
     - 'which rsync || ( apk add rsync )'
-    - 'which docker-compose || ( apk add docker-compose )'
+    - 'which docker || ( apk add docker )'
     # set up auth keys for ssh and rsync
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY_STAGING" | tr -d '\r' > ~/.ssh/id_rsa
@@ -64,7 +64,7 @@ production:
   before_script:
     - 'which ssh-agent || ( apk update && apk add openssh-client )'
     - 'which rsync || ( apk add rsync )'
-    - 'which docker-compose || ( apk add docker-compose )'
+    - 'which docker || ( apk add docker )'
     - mkdir -p ~/.ssh
     - echo "$SSH_PRIVATE_KEY_PRODUCTION" | tr -d '\r' > ~/.ssh/id_rsa
     - chmod 700 ~/.ssh
