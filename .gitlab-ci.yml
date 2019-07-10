@@ -1,0 +1,87 @@
+image: node:alpine
+
+stages:
+  - test
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+# unit testing, lint and dependency install
+test:
+  stage: test
+  script:
+    - npm install --progress=false #install dependencies
+    - node_modules/eslint/bin/eslint.js --ignore-path .gitignore . # run linter
+    - CI=true npm test -- --coverage # run tests and output coverage
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/ # regex for getting coverage percentage as int
+
+# install dependencies and build for deployment
+build:
+  stage: build
+  script:
+    - npm install --progress=false
+    - npm run build
+  artifacts:
+    paths:
+      - build/ # keep built files for deployment as artifacts
+
+# staging step before production
+staging:
+  image: alpine # alpine - small linux distribution ~5MB
+  stage: deploy
+  before_script:
+    # install missing dependencies for running web-app
+    - 'which ssh-agent || ( apk update && apk add openssh-client )'
+    - 'which rsync || ( apk add rsync )'
+    - 'which docker-compose || ( apk add docker-compose )'
+    # set up auth keys for ssh and rsync
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY_STAGING" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+    - ssh-keyscan -p $VPS_PORT_STAGING -H $VPS_IP_STAGING >> ~/.ssh/known_hosts
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    # rsync built files to the docker build stage
+    - rsync -ave "ssh -p $VPS_PORT_STAGING" --delete build $VPS_USER@$VPS_IP_STAGING:/home/$VPS_USER/docker/
+    # build docker with nginx config and run the docker nginx container
+    #- ssh -p $VPS_PORT_STAGING $VPS_USER@$VPS_IP_STAGING "cd docker/ && docker stop nginx || docker build --rm -f Dockerfile -t todo:staging . && docker run --rm -d -p 80:80 --name nginx todo:staging"
+    - ssh -p $VPS_PORT_STAGING $VPS_USER@$VPS_IP_STAGING "cd docker/ && docker-compose down && docker-compose up -d"
+  cache: {}
+  only:
+    - master
+  environment:
+    name: staging
+    url: http://$VPS_IP_STAGING/
+
+production:
+  image: alpine
+  stage: deploy
+  before_script:
+    - 'which ssh-agent || ( apk update && apk add openssh-client )'
+    - 'which rsync || ( apk add rsync )'
+    - 'which docker-compose || ( apk add docker-compose )'
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY_PRODUCTION" | tr -d '\r' > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh
+    - chmod 600 ~/.ssh/id_rsa
+    - eval $(ssh-agent -s)
+    - ssh-add ~/.ssh/id_rsa
+    - ssh-keyscan -p $VPS_PORT_PRODUCTION -H $VPS_IP_PRODUCTION >> ~/.ssh/known_hosts
+    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+  script:
+    - rsync -ave "ssh -p $VPS_PORT_PRODUCTION" --delete build $VPS_USER@$VPS_IP_PRODUCTION:/home/$VPS_USER/docker/
+    - ssh -p $VPS_PORT_PRODUCTION $VPS_USER@$VPS_IP_PRODUCTION "cd docker/ && docker-compose down && docker-compose up
+      -d"
+  cache: {}
+  only:
+    - master
+  environment:
+    name: production
+    url: http://$VPS_IP_PRODUCTION/
+  when: manual
