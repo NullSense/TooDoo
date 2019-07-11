@@ -5,51 +5,53 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-class Tab extends React.Component {
+class TODOList extends React.Component {
   constructor(props) {
     super(props);
-  }
-  render() {
-    return <p>This is a test.</p>;
-  }
-}
 
-class TopBar extends React.Component {
-  constructor(props) {
-    super(props);
+    this.state = {
+      entries: [],
+      currID: 0
+    };
+    this.addEntry = this.addEntry.bind(this);
   }
-  render() {
-    return <div />;
-  }
-}
 
-class TODOPane extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+  addEntry() {
+    this.setState(state => {
+      return {
+        entries: [...state.entries, <Entry id={this.state.currID} />],
+        currID: this.state.currID + 1
+      };
+    });
   }
-  render() {
-    return <div />;
-  }
-}
 
-class DONEPane extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+  handleSubmit(event) {
+    event.preventDefault();
+    this.addEntry();
   }
+
   render() {
-    return <div />;
+    return (
+      <div className="TODOList">
+        {this.state.entries}
+        <form onSubmit={this.handleSubmit.bind(this)}>
+          <button className="NewEntry" type="submit">
+            +
+          </button>
+        </form>
+      </div>
+    );
   }
 }
 
 class Entry extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       entry: '',
       tickable: false,
-      id: '',
+      id: this.props.id,
       color: '',
       pos: ''
     };
@@ -83,24 +85,22 @@ class Entry extends React.Component {
   render() {
     if (this.state.tickable) {
       return (
-        <div>
-          <p className="Entry" onClick={this.handleKeyPressed}>
-            {this.state.entry}
-          </p>
-        </div>
+        <li key={this.state.id} className="Entry" onClick={this.handleKeyPressed}>
+          {this.state.entry}
+        </li>
       );
     } else {
       return (
-        <div>
-          <form className="EntryForm">
+        <form className="EntryForm">
+          <li>
             <input
-              className="EntryInput"
+              className="Entry"
               value={this.state.entry}
               onChange={this.handleChange}
               onKeyDown={this.handleKeyPressed}
             />
-          </form>
-        </div>
+          </li>
+        </form>
       );
     }
   }
@@ -111,9 +111,7 @@ function App() {
     <div className="App">
       {/* this is a test comment */}
       <header className="App-header">
-        <Entry />
-        <Entry />
-        <Entry />
+        <TODOList />
       </header>
     </div>
   );
