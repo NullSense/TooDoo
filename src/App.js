@@ -1,8 +1,8 @@
 /* eslint-disable */
 /* istanbul ignore file */
 
+'use strict';
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class TODOList extends React.Component {
@@ -10,8 +10,7 @@ class TODOList extends React.Component {
     super(props);
 
     this.state = {
-      entries: [],
-      currID: 0
+      entries: [{ id: 0 }, { id: 1 }, { id: 2 }]
     };
 
     this.addEntry = this.addEntry.bind(this);
@@ -21,30 +20,25 @@ class TODOList extends React.Component {
   addEntry() {
     this.setState(state => {
       return {
-        entries: [...state.entries, <Entry id={this.state.currID} del={this.delEntry} />],
-        currID: this.state.currID + 1
+        entries: [...state.entries, { id: Date.now() }]
       };
     });
+    event.preventDefault();
   }
 
   delEntry(id) {
     this.setState(prev => {
-      return { entries: prev.entries.filter(
-        entry => entry.props.id !== id
-      )}
+      return { entries: prev.entries.filter(entry => entry.id !== id) };
     });
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    this.addEntry();
   }
 
   render() {
     return (
       <div className="TODOList">
-        {this.state.entries}
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        {this.state.entries.map(entry => (
+          <Entry id={entry.id} del={this.delEntry} />
+        ))}
+        <form onSubmit={this.addEntry.bind(this)}>
           <button className="NewEntry" type="submit">
             +
           </button>
@@ -60,10 +54,7 @@ class Entry extends React.Component {
 
     this.state = {
       entry: '',
-      tickable: false,
-      id: this.props.id,
-      color: '',
-      pos: ''
+      tickable: false
     };
 
     // bind context
@@ -92,20 +83,26 @@ class Entry extends React.Component {
     }
   }
 
-  handleSubmit(event) {
-    event.preventDefault()
-    this.props.del(this.state.id);
+  handleDelete(event) {
+    event.preventDefault();
+    this.props.del(this.props.id);
   }
 
   render() {
     if (this.state.tickable) {
       return (
-        <form onSubmit={this.handleSubmit.bind(this)}>
+        <form onSubmit={this.handleDelete.bind(this)}>
           <div className="EntryWrapper">
-            <li key={this.state.id} className="Entry" onClick={this.handleKeyPressed}>
+            <p key={this.props.id} className="Entry" onClick={this.handleKeyPressed}>
               {this.state.entry}
-            </li>
-            <button className="DelEntry" type="submit">-</button>
+            </p>
+            <button className="DelEntry" type="submit">
+              <img
+                style={{ filter: 'opacity(50%)', maxWidth: '50%', height: 'auto' }}
+                src="https://img.icons8.com/metro/26/000000/trash.png"
+                alt="-"
+              />
+            </button>
           </div>
         </form>
       );
@@ -113,7 +110,7 @@ class Entry extends React.Component {
       return (
         <form className="EntryForm">
           <li>
-            <input
+            <textarea
               className="Entry"
               value={this.state.entry}
               onChange={this.handleChange}
@@ -129,7 +126,6 @@ class Entry extends React.Component {
 function App() {
   return (
     <div className="App">
-      {/* this is a test comment */}
       <header className="App-header">
         <TODOList />
       </header>

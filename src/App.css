@@ -63,7 +63,8 @@
   display: flex;
 }
 
-input {
+input,
+textarea {
   border: none;
   outline: none;
   padding: 0px;
