@@ -1,6 +1,5 @@
 /* istanbul ignore file */
 
-'use strict';
 import React from 'react';
 import './App.css';
 
