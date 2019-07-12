@@ -18,9 +18,9 @@ class TODOList extends React.Component {
   }
 
   addEntry() {
-    this.setState(state => {
+    this.setState(prev => {
       return {
-        entries: [...state.entries, { id: Date.now() }]
+        entries: [...prev.entries, { id: Date.now(), entry: '' }]
       };
     });
     event.preventDefault();
@@ -32,11 +32,28 @@ class TODOList extends React.Component {
     });
   }
 
+  // modEntry(id, entry) {
+  //   console.log(entry);
+  //   this.setState(prev => {
+  //     return {
+  //       entries: prev.entries.map(
+  //         function(item) {
+  //           if  (item.id === id) {
+  //             return { id: item.id, entry: item.entry.concat(entry) };
+  //           } else {
+  //             return item;
+  //           }
+  //         }
+  //       )
+  //     };
+  //   });
+  // }
+
   render() {
     return (
       <div className="TODOList">
         {this.state.entries.map(entry => (
-          <Entry id={entry.id} del={this.delEntry} />
+          <Entry key={entry.id} id={entry.id} del={this.delEntry} />
         ))}
         <form onSubmit={this.addEntry.bind(this)}>
           <button className="NewEntry" type="submit">
@@ -67,6 +84,7 @@ class Entry extends React.Component {
     this.setState({
       entry: event.target.value
     });
+    // this.props.mod(this.props.id, event.target.value);
   }
 
   handleKeyPressed(event) {
