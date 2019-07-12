@@ -28,7 +28,7 @@ class TODOList extends React.Component {
   /**
    * add an item to global state
    */
-  addItem() {
+  addItem(event) {
     this.setState(prev => {
       return {
         entries: [...prev.entries, { id: Date.now() }]
