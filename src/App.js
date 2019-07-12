@@ -1,5 +1,4 @@
 /* istanbul ignore file */
-/* eslint-disable */
 
 'use strict';
 import React from 'react';
