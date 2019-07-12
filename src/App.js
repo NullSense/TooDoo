@@ -1,47 +1,48 @@
 /* istanbul ignore file */
-/*eslint valid-jsdoc: "error"*/
-/* eslint-ev es6 */
+/* eslint-disable */
 
 'use strict';
 import React from 'react';
 import './App.css';
 
 /**
- * TODOList: has top level state in which all TODOItems are stored
+ * TODOList has top level state in which all TODOItems are stored
  * @version 0.1
- *
+ * @author salsa20
+ * @extends React.Component
  */
 class TODOList extends React.Component {
-  /**
-   * @param {props} input
-   *
-   */
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
 
-    // global state
+    // 'global' state
     this.state = {
       entries: [{ id: 0 }]
     };
 
-    this.addEntry = this.addEntry.bind(this);
-    this.delEntry = this.delEntry.bind(this);
+    // bind functions with scope
+    this.addItem = this.addItem.bind(this);
+    this.delItem = this.delItem.bind(this);
   }
 
   /**
-   * description
-   *
+   * add an item to global state
    */
-  addEntry() {
+  addItem() {
     this.setState(prev => {
       return {
-        entries: [...prev.entries, { id: Date.now(), entry: '' }]
+        entries: [...prev.entries, { id: Date.now() }]
       };
     });
+
+    // prevent reloading of page
     event.preventDefault();
   }
 
-  delEntry(id) {
+  /**
+   * delete an item from global state
+   */
+  delItem(id) {
     this.setState(prev => {
       return { entries: prev.entries.filter(entry => entry.id !== id) };
     });
@@ -50,12 +51,15 @@ class TODOList extends React.Component {
   render() {
     return (
       <div className="TODOList">
+        {/* map id to TODOItem */}
         {this.state.entries.map(entry => (
-          <TODOItem key={entry.id} id={entry.id} del={this.delEntry} />
+          <TODOItem key={entry.id} id={entry.id} del={this.delItem} />
         ))}
-        <form onSubmit={this.addEntry.bind(this)}>
+        {/* on submit add new TODOItem */}
+        <form onSubmit={this.addItem.bind(this)}>
           <button className="NewEntry" type="submit">
-            +
+            {' '}
+            +{' '}
           </button>
         </form>
       </div>
@@ -63,13 +67,21 @@ class TODOList extends React.Component {
   }
 }
 
+/**
+ * This component represents a TODOItem
+ * @version 0.1
+ * @author salsa20
+ * @extends React.Component
+ * @param {} props pass on parent data
+ */
 class TODOItem extends React.Component {
   constructor(props) {
     super(props);
 
+    // local item state
     this.state = {
       entry: '',
-      tickable: false
+      modifiable: false
     };
 
     // bind context
@@ -77,34 +89,46 @@ class TODOItem extends React.Component {
     this.handleKeyPressed = this.handleKeyPressed.bind(this);
   }
 
-  // controlled input
+  /**
+   * on input update local entry
+   * @param {} event pass on input event
+   */
   handleChange(event) {
     this.setState({
       entry: event.target.value
     });
   }
 
-  handleKeyPressed(event) {
-    // if enter was pressed
-    if (event.keyCode === 13) {
-      // render differently, send to server
-      this.setState({
-        tickable: true
-      });
-    } else if (event.button === 0) {
-      this.setState({
-        tickable: false
-      });
-    }
-  }
-
+  /**
+   * call top level delete function passed on as prop
+   * @param {} event pass on input event
+   */
   handleDelete(event) {
     event.preventDefault();
     this.props.del(this.props.id);
   }
 
+  /**
+   * on enter disallow input
+   * @param {} event pass on input event
+   */
+  handleKeyPressed(event) {
+    // if enter was pressed
+    if (event.keyCode === 13) {
+      // render differently, send to server
+      this.setState({
+        modifiable: true
+      });
+    } else if (event.button === 0) {
+      this.setState({
+        modifiable: false
+      });
+    }
+  }
+
   render() {
-    if (this.state.tickable) {
+    // if modfiable render input field, else display list item with delete button
+    if (this.state.modifiable) {
       return (
         <form onSubmit={this.handleDelete.bind(this)}>
           <div className="EntryWrapper">
@@ -139,6 +163,9 @@ class TODOItem extends React.Component {
   }
 }
 
+/**
+ * return and export this app
+ */
 function App() {
   return (
     <div className="App">
