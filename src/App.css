@@ -14,7 +14,7 @@
 }
 
 .TODOList {
-  background-color: #a0a8ba;
+  background-color: #283242;
   height: 800px;
   width: 500px;
   border-radius: 10px;
@@ -26,31 +26,15 @@
   margin-right: auto;
   margin-top: 14px;
   margin-bottom: 14px;
-  background-color: white;
+  background-color: #cad0db;
   color: black;
-  font-size: 17px;
+  font-size: 20px;
+  text-align: center;
   width: 80%;
   height: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-
-input {
-  border: none;
-  outline: none;
-  padding: 0px;
-  margin: 0px;
-}
-
-li {
-  list-style: '';
-}
-
-/* input:focus { */
-/*   outline-width: 0; */
-/*   margin-top: 0; */
-/*   margin-bottom: 0; */
-/* } */
 
 .NewEntry {
   margin-left: auto;
@@ -60,4 +44,33 @@ li {
   height: 30px;
   width: 15%;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.DelEntry {
+  font-size: 17px;
+  margin-top: 14px;
+  margin-bottom: 14px;
+  border-radius: 10px;
+  height: 30px;
+  width: 15%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.EntryWrapper {
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  display: flex;
+}
+
+input,
+textarea {
+  border: none;
+  outline: none;
+  padding: 0px;
+  margin: 0px;
+}
+
+li {
+  list-style: '';
 }
