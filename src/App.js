@@ -132,9 +132,9 @@ class TODOItem extends React.Component {
       return (
         <form onSubmit={this.handleDelete.bind(this)}>
           <div className="EntryWrapper">
-            <p key={this.props.id} className="TODOItem" onClick={this.handleKeyPressed}>
+            <li className="TODOItem" onClick={this.handleKeyPressed}>
               {this.state.entry}
-            </p>
+            </li>
             <button className="DelEntry" type="submit">
               <img
                 style={{ filter: 'opacity(50%)', maxWidth: '50%', height: 'auto' }}
