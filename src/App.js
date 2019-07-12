@@ -1,22 +1,37 @@
-/* eslint-disable */
 /* istanbul ignore file */
+/*eslint valid-jsdoc: "error"*/
+/* eslint-ev es6 */
 
 'use strict';
 import React from 'react';
 import './App.css';
 
+/**
+ * TODOList: has top level state in which all TODOItems are stored
+ * @version 0.1
+ *
+ */
 class TODOList extends React.Component {
+  /**
+   * @param {props} input
+   *
+   */
   constructor(props) {
     super(props);
 
+    // global state
     this.state = {
-      entries: [{ id: 0 }, { id: 1 }, { id: 2 }]
+      entries: [{ id: 0 }]
     };
 
     this.addEntry = this.addEntry.bind(this);
     this.delEntry = this.delEntry.bind(this);
   }
 
+  /**
+   * description
+   *
+   */
   addEntry() {
     this.setState(prev => {
       return {
@@ -32,28 +47,11 @@ class TODOList extends React.Component {
     });
   }
 
-  // modEntry(id, entry) {
-  //   console.log(entry);
-  //   this.setState(prev => {
-  //     return {
-  //       entries: prev.entries.map(
-  //         function(item) {
-  //           if  (item.id === id) {
-  //             return { id: item.id, entry: item.entry.concat(entry) };
-  //           } else {
-  //             return item;
-  //           }
-  //         }
-  //       )
-  //     };
-  //   });
-  // }
-
   render() {
     return (
       <div className="TODOList">
         {this.state.entries.map(entry => (
-          <Entry key={entry.id} id={entry.id} del={this.delEntry} />
+          <TODOItem key={entry.id} id={entry.id} del={this.delEntry} />
         ))}
         <form onSubmit={this.addEntry.bind(this)}>
           <button className="NewEntry" type="submit">
@@ -65,7 +63,7 @@ class TODOList extends React.Component {
   }
 }
 
-class Entry extends React.Component {
+class TODOItem extends React.Component {
   constructor(props) {
     super(props);
 
@@ -84,7 +82,6 @@ class Entry extends React.Component {
     this.setState({
       entry: event.target.value
     });
-    // this.props.mod(this.props.id, event.target.value);
   }
 
   handleKeyPressed(event) {
@@ -111,7 +108,7 @@ class Entry extends React.Component {
       return (
         <form onSubmit={this.handleDelete.bind(this)}>
           <div className="EntryWrapper">
-            <p key={this.props.id} className="Entry" onClick={this.handleKeyPressed}>
+            <p key={this.props.id} className="TODOItem" onClick={this.handleKeyPressed}>
               {this.state.entry}
             </p>
             <button className="DelEntry" type="submit">
@@ -129,10 +126,11 @@ class Entry extends React.Component {
         <form className="EntryForm">
           <li>
             <textarea
-              className="Entry"
+              className="TODOItem"
               value={this.state.entry}
               onChange={this.handleChange}
               onKeyDown={this.handleKeyPressed}
+              placeholder="type a note..."
             />
           </li>
         </form>
