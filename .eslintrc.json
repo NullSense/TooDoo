@@ -20,8 +20,7 @@
   "rules": {
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "prettier/prettier": "error",
-    "react/prop-types": 0
+    "prettier/prettier": "error"
   },
   "settings": {
     "react": {
