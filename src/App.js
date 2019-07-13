@@ -2,6 +2,7 @@
 
 import React from 'react';
 import './App.css';
+import PropTypes from 'prop-types';
 
 /**
  * TODOList has top level state in which all TODOItems are stored
@@ -160,6 +161,12 @@ class TODOItem extends React.Component {
     }
   }
 }
+
+// define prop types for TODOItem
+TODOItem.propTypes = {
+  del: PropTypes.func,
+  id: PropTypes.number
+};
 
 /**
  * return and export this app
