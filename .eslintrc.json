@@ -23,7 +23,9 @@
     "prettier/prettier": "error",
     "eqeqeq": "error",
     "no-console": "error",
-    "dot-notation": "error"
+    "dot-notation": "error",
+    "no-unused-vars": "warn",
+    "semi": [2, "always"]
   },
   "settings": {
     "react": {
