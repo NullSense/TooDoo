@@ -22,7 +22,7 @@
     "react/jsx-uses-vars": "error",
     "prettier/prettier": "error",
     "eqeqeq": "error",
-    "no-console": "error",
+    "no-console": "warn",
     "dot-notation": "error",
     "no-unused-vars": "warn",
     "semi": [2, "always"]
