@@ -2,6 +2,6 @@
 
 import { configure, mount, shallow, render } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import App from './App.js';
+import TODOItem from './TODOItem.js';
 
 configure({ adapter: new Adapter() });
