@@ -15,7 +15,7 @@ class TODOList extends React.Component {
 
     // 'global' state
     this.state = {
-      entries: [{ id: 0 }]
+      entries: [{ id: Date.now() }]
     };
 
     // bind functions with scope
