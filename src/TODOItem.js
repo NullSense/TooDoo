@@ -17,7 +17,7 @@ class TODOItem extends React.Component {
     // local item state
     this.state = {
       entry: '',
-      modifiable: false
+      modifiable: true
     };
 
     // bind context
@@ -53,18 +53,18 @@ class TODOItem extends React.Component {
     if (event.keyCode === 13) {
       // render differently, send to server
       this.setState({
-        modifiable: true
+        modifiable: false
       });
     } else if (event.button === 0) {
       this.setState({
-        modifiable: false
+        modifiable: true
       });
     }
   }
 
   render() {
     // if modfiable render input field, else display list item with delete button
-    if (this.state.modifiable) {
+    if (!this.state.modifiable) {
       return (
         <form onSubmit={this.handleDelete.bind(this)}>
           <div className="EntryWrapper">
