@@ -61,7 +61,10 @@ describe('TODOList', () => {
   // addItem should work as expected on submit
   it('should add item on submit', () => {
     const prevLength = component.state().entries.length;
-    component.find('form').simulate('submit', { preventDefault() {}, value: 'abc' });
+    component
+      .find('button')
+      .at(0)
+      .simulate('click', { preventDefault() {} });
     expect(component.state().entries.length).toEqual(prevLength + 1);
   });
 });
