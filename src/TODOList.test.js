@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import { configure, mount, shallow, render } from 'enzyme';
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';

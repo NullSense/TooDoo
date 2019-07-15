@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import React from 'react';
 import TODOItem from './TODOItem.js';
 
