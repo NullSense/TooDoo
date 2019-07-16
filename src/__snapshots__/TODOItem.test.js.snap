@@ -17,17 +17,37 @@ exports[`TODOItem renders correctly 1`] = `
 `;
 
 exports[`TODOItem renders correctly 2`] = `
-<form
-  className="EntryForm"
+<TODOItem
+  id={1}
+  mod={false}
 >
-  <li>
-    <textarea
-      className="TODOItem"
-      onChange={[Function]}
-      onKeyDown={[Function]}
-      placeholder="type a note..."
-      value=""
-    />
-  </li>
-</form>
+  <form
+    onSubmit={[Function]}
+  >
+    <div
+      className="EntryWrapper"
+    >
+      <li
+        className="TODOItem"
+        onClick={[Function]}
+      />
+      <button
+        className="DelEntry"
+        type="submit"
+      >
+        <img
+          alt="-"
+          src="https://img.icons8.com/metro/26/000000/trash.png"
+          style={
+            Object {
+              "filter": "opacity(50%)",
+              "height": "auto",
+              "maxWidth": "50%",
+            }
+          }
+        />
+      </button>
+    </div>
+  </form>
+</TODOItem>
 `;

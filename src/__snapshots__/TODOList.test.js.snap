@@ -29,12 +29,13 @@ exports[`TODOList Should render correctly 1`] = `
     </button>
     <button
       className="Button"
+      onClick={[Function]}
       style={
         Object {
           "width": "200px",
         }
       }
-      type="submit"
+      type="button"
     >
       Load
     </button>
