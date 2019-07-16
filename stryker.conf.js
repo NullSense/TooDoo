@@ -7,7 +7,6 @@ module.exports = function(config) {
       'src/**/*.js?(x)',
       '!src/**/*@(.test|.spec|Spec).js?(x)',
       '!src/serviceWorker.js',
-      '!src/App.js',
       '!src/index.js'
     ],
     mutator: 'javascript',

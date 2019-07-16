@@ -65,7 +65,10 @@ class TODOItem extends React.Component {
    */
   componentDidMount() {
     if (this.props.entry !== undefined) {
-      this.setState({ entry: this.props.entry, modifiable: true });
+      this.setState({ entry: this.props.entry });
+    }
+    if (this.props.mod !== undefined) {
+      this.setState({ modifiable: this.props.mod });
     }
   }
 
@@ -110,7 +113,8 @@ class TODOItem extends React.Component {
 TODOItem.propTypes = {
   del: PropTypes.func,
   id: PropTypes.number,
-  entry: PropTypes.string
+  entry: PropTypes.string,
+  mod: PropTypes.bool
 };
 
 export default TODOItem;

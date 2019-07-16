@@ -38,22 +38,26 @@ class TODOList extends React.Component {
   /**
    * load Item through API call
    */
-  loadItems() {
-    fetch('https://jsonplaceholder.typicode.com/todos/1') // use mock api for now
-      .then(response => response.json())
-      .then(json => {
-        // check if item with this id is already contained
-        if (this.state.items.findIndex(item => item.id === json.id) === -1) {
-          this.setState({ items: [...this.state.items, { id: json.id, entry: json.title }] });
-        }
-      });
+  async loadItems() {
+    try {
+      await fetch('https://jsonplaceholder.typicode.com/todos/1') // use mock api for now
+        .then(response => response.json())
+        .then(json => {
+          // check if item with this id is already contained
+          if (this.state.items.findIndex(item => item.id === json.id) === -1) {
+            this.setState({ items: [...this.state.items, { id: json.id, entry: json.title }] });
+          }
+        });
+    } catch (e) {
+      // render popup
+    }
   }
 
   render() {
     return (
       <div className="TODOList">
         {this.state.items.map(item => (
-          <TODOItem key={item.id} id={item.id} entry={item.entry} del={this.delItem.bind(this)} />
+          <TODOItem key={item.id} id={item.id} entry={item.entry} del={this.delItem.bind(this)} mod={true} />
         ))}
         <div className="container">
           <button className="Button" type="button" onClick={this.addItem.bind(this)}>

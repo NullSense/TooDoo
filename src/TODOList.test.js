@@ -79,4 +79,16 @@ describe('TODOList', () => {
     expect(component.state().items.length).toEqual(1);
     expect(component.state().items[0]).toEqual({ id: 1, entry: 'delectus aut autem' });
   });
+  // it('should make an api call on button click', async () => {
+  //   component.setState({
+  //     items: []
+  //   });
+  //   expect(component.state().items.length).toEqual(0);
+  //   component
+  //     .find('button')
+  //     .at(1)
+  //     .simulate('click');
+  //   expect(component.state().items.length).toEqual(1); // this is called before the async returns....
+  //   expect(component.state().items[0]).toEqual({ id: 1, entry: 'delectus aut autem' });
+  // });
 });
