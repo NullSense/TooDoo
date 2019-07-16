@@ -34,37 +34,37 @@ describe('TODOList', () => {
 
   // there should be only one TODOList
   it('should initially hold one item', () => {
-    expect(component.state().entries.length).toEqual(1);
+    expect(component.state().items.length).toEqual(1);
   });
 
   // delItem should work as expected on call
   it('should delete item from global state', () => {
     component.setState({
-      entries: [{ id: 0 }]
+      items: [{ id: 0 }]
     });
-    expect(component.state().entries.length).toEqual(1);
+    expect(component.state().items.length).toEqual(1);
     component.instance().delItem(0);
-    expect(component.state().entries.length).toEqual(0);
+    expect(component.state().items.length).toEqual(0);
   });
 
   // addItem should work as expected on call
   it('should add item to global state', () => {
     component.setState({
-      entries: []
+      items: []
     });
-    expect(component.state().entries.length).toEqual(0);
+    expect(component.state().items.length).toEqual(0);
     component.instance().addItem({ preventDefault() {}, value: '' });
-    expect(component.state().entries.length).toEqual(1);
-    expect(component.state().entries[0].id).toBeLessThanOrEqual(Date.now());
+    expect(component.state().items.length).toEqual(1);
+    expect(component.state().items[0].id).toBeLessThanOrEqual(Date.now());
   });
 
   // addItem should work as expected on submit
   it('should add item on submit', () => {
-    const prevLength = component.state().entries.length;
+    const prevLength = component.state().items.length;
     component
       .find('button')
       .at(0)
       .simulate('click', { preventDefault() {} });
-    expect(component.state().entries.length).toEqual(prevLength + 1);
+    expect(component.state().items.length).toEqual(prevLength + 1);
   });
 });

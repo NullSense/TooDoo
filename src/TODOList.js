@@ -13,26 +13,17 @@ class TODOList extends React.Component {
 
     // 'global' state
     this.state = {
-      entries: [{ id: Date.now() }]
+      items: [{ id: Date.now(), entry: '' }]
     };
-
-    // bind functions with scope
-    this.addItem = this.addItem.bind(this);
-    this.delItem = this.delItem.bind(this);
   }
 
   /**
    * add an item to global state
    */
-  addItem(event) {
+  addItem() {
     this.setState(prev => {
-      return {
-        entries: [...prev.entries, { id: Date.now() }]
-      };
+      return { items: [...prev.items, { id: Date.now() }] };
     });
-
-    // prevent reloading of page
-    event.preventDefault();
   }
 
   /**
@@ -40,21 +31,35 @@ class TODOList extends React.Component {
    */
   delItem(id) {
     this.setState(prev => {
-      return { entries: prev.entries.filter(entry => entry.id !== id) };
+      return { items: prev.items.filter(entry => entry.id !== id) };
     });
+  }
+
+  /**
+   * load Item through API call
+   */
+  loadItems() {
+    fetch('https://jsonplaceholder.typicode.com/todos/1') // use mock api for now
+      .then(response => response.json())
+      .then(json => {
+        // check if item with this id is already contained
+        if (this.state.items.findIndex(item => item.id === json.id) === -1) {
+          this.setState({ items: [...this.state.items, { id: json.id, entry: json.title }] });
+        }
+      });
   }
 
   render() {
     return (
       <div className="TODOList">
-        {this.state.entries.map(entry => (
-          <TODOItem key={entry.id} id={entry.id} del={this.delItem} />
+        {this.state.items.map(item => (
+          <TODOItem key={item.id} id={item.id} entry={item.entry} del={this.delItem.bind(this)} />
         ))}
         <div className="container">
           <button className="Button" type="button" onClick={this.addItem.bind(this)}>
             +
           </button>
-          <button style={{ width: '200px' }} className="Button" type="submit">
+          <button style={{ width: '200px' }} className="Button" type="button" onClick={this.loadItems.bind(this)}>
             Load
           </button>
         </div>

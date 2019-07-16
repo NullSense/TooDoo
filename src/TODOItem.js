@@ -60,6 +60,15 @@ class TODOItem extends React.Component {
     }
   }
 
+  /**
+   * On mount set passed on entry, else leave as empty string
+   */
+  componentDidMount() {
+    if (this.props.entry !== undefined) {
+      this.setState({ entry: this.props.entry, modifiable: true });
+    }
+  }
+
   render() {
     // if modfiable render input field, else display list item with delete button
     if (!this.state.modifiable) {
@@ -100,7 +109,8 @@ class TODOItem extends React.Component {
 // define prop types for TODOItem
 TODOItem.propTypes = {
   del: PropTypes.func,
-  id: PropTypes.number
+  id: PropTypes.number,
+  entry: PropTypes.string
 };
 
 export default TODOItem;
