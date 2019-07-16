@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import React from 'react';
 import TODOItem from './TODOItem.js';
 
@@ -49,17 +47,17 @@ class TODOList extends React.Component {
   render() {
     return (
       <div className="TODOList">
-        {/* map id to TODOItem */}
         {this.state.entries.map(entry => (
           <TODOItem key={entry.id} id={entry.id} del={this.delItem} />
         ))}
-        {/* on submit add new TODOItem */}
-        <form onSubmit={this.addItem.bind(this)}>
-          <button className="NewEntry" type="submit">
-            {' '}
-            +{' '}
+        <div className="container">
+          <button className="Button" type="button" onClick={this.addItem.bind(this)}>
+            +
           </button>
-        </form>
+          <button style={{ width: '200px' }} className="Button" type="submit">
+            Load
+          </button>
+        </div>
       </div>
     );
   }

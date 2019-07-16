@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TODOList Should render correctly 1`] = `
+<div
+  className="TODOList"
+>
+  <form
+    className="EntryForm"
+  >
+    <li>
+      <textarea
+        className="TODOItem"
+        onChange={[Function]}
+        onKeyDown={[Function]}
+        placeholder="type a note..."
+        value=""
+      />
+    </li>
+  </form>
+  <div
+    className="container"
+  >
+    <button
+      className="Button"
+      onClick={[Function]}
+      type="button"
+    >
+      +
+    </button>
+    <button
+      className="Button"
+      style={
+        Object {
+          "width": "200px",
+        }
+      }
+      type="submit"
+    >
+      Load
+    </button>
+  </div>
+</div>
+`;

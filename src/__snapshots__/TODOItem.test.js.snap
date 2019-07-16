@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TODOItem renders correctly 1`] = `
+<form
+  className="EntryForm"
+>
+  <li>
+    <textarea
+      className="TODOItem"
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="type a note..."
+      value=""
+    />
+  </li>
+</form>
+`;
+
+exports[`TODOItem renders correctly 2`] = `
+<form
+  className="EntryForm"
+>
+  <li>
+    <textarea
+      className="TODOItem"
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="type a note..."
+      value=""
+    />
+  </li>
+</form>
+`;

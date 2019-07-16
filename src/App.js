@@ -1,5 +1,3 @@
-/* istanbul ignore file */
-
 import React from 'react';
 import TODOList from './TODOList.js';
 import './App.css';
