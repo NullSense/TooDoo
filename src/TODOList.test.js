@@ -67,4 +67,16 @@ describe('TODOList', () => {
       .simulate('click', { preventDefault() {} });
     expect(component.state().items.length).toEqual(prevLength + 1);
   });
+
+  // loadItem should correctly make an api call
+  // TODO: mock api call
+  it('should make a proper api call', async () => {
+    component.setState({
+      items: []
+    });
+    expect(component.state().items.length).toEqual(0);
+    await component.instance().loadItems();
+    expect(component.state().items.length).toEqual(1);
+    expect(component.state().items[0]).toEqual({ id: 1, entry: 'delectus aut autem' });
+  });
 });
