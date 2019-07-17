@@ -39,18 +39,19 @@ class TODOList extends React.Component {
    * load Item through API call
    */
   async loadItems() {
-    try {
-      await fetch('https://jsonplaceholder.typicode.com/todos/1') // use mock api for now
-        .then(response => response.json())
-        .then(json => {
-          // check if item with this id is already contained
-          if (this.state.items.findIndex(item => item.id === json.id) === -1) {
-            this.setState({ items: [...this.state.items, { id: json.id, entry: json.title }] });
-          }
-        });
-    } catch (e) {
-      // render popup
-    }
+    let response = await fetch('http://127.0.0.1:8000/api/todos/'); // use mock api for now
+    let json = await response.json();
+
+    // first filter items and check if their id is already contained in state,
+    // then map them to valid entries (temp)
+    const results = json.results
+      .filter(item => this.state.items.findIndex(state_item => item.id === state_item.id) === -1)
+      .map(item => {
+        return { id: item.id, entry: item.entry };
+      });
+
+    // set state
+    this.setState({ items: [...this.state.items, ...results] });
   }
 
   render() {
