@@ -15,7 +15,7 @@ test:
   script:
     - cd frontend/
     - npm install --progress=false #install dependencies
-    - node_modules/eslint/bin/eslint.js --ignore-path .gitignore . # run linter
+    - node_modules/eslint/bin/eslint.js src/ # run linter
     - CI=true npm test -- --coverage # run tests and output coverage
   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/ # regex for getting coverage percentage as int
 
