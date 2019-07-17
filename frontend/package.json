@@ -17,7 +17,7 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,md}": [
       "prettier --single-quote --write",
-      "eslint --ignore-path .gitignore .",
+      "eslint src/",
       "git add"
     ]
   },
