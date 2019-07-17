@@ -44,7 +44,7 @@ class TODOList extends React.Component {
 
     // first filter items and check if their id is already contained in state,
     // then map them to valid entries (temp)
-    const results = json.results
+    const results = json
       .filter(item => this.state.items.findIndex(state_item => item.id === state_item.id) === -1)
       .map(item => {
         return { id: item.id, entry: item.entry };
