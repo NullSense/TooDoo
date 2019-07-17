@@ -13,7 +13,7 @@ class TODOList extends React.Component {
 
     // 'global' state
     this.state = {
-      items: [{ id: Date.now(), entry: '' }]
+      items: [{ id: Date.now(), entry: '', completed: false }]
     };
   }
 
@@ -39,8 +39,8 @@ class TODOList extends React.Component {
    * load Item through API call
    */
   async loadItems() {
-    let response = await fetch('http://127.0.0.1:8000/api/todos/'); // use mock api for now
-    let json = await response.json();
+    const response = await fetch('http://127.0.0.1:8000/api/todos/');
+    const json = await response.json();
 
     // first filter items and check if their id is already contained in state,
     // then map them to valid entries (temp)
@@ -58,7 +58,7 @@ class TODOList extends React.Component {
     return (
       <div className="TODOList">
         {this.state.items.map(item => (
-          <TODOItem key={item.id} id={item.id} entry={item.entry} del={this.delItem.bind(this)} mod={true} />
+          <TODOItem key={item.id} id={item.id} entry={item.entry} del={this.delItem.bind(this)} mod={false} />
         ))}
         <div className="container">
           <button className="Button" type="button" onClick={this.addItem.bind(this)}>
