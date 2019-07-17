@@ -13,6 +13,7 @@ cache:
 test:
   stage: test
   script:
+    - cd frontend/
     - npm install --progress=false #install dependencies
     - node_modules/eslint/bin/eslint.js --ignore-path .gitignore . # run linter
     - CI=true npm test -- --coverage # run tests and output coverage
@@ -22,6 +23,7 @@ test:
 build:
   stage: build
   script:
+    - cd frontend/
     - npm install --progress=false
     - npm run build
   artifacts:
