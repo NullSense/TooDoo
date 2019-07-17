@@ -56,7 +56,7 @@ staging:
     - master
   environment:
     name: staging
-    url: http://$VPS_IP_STAGING/
+    url: $URL_STAGING
 
 production:
   image: alpine
