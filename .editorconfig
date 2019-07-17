@@ -26,6 +26,15 @@ spaces_around_operators = true
 spaces_around_brackets = none
 indent_brace_style = BSD KNF
 
+[*.py]
+indent_size = 4
+tab_width = 4
+continuation_indent_size = 4
+
+[*.json]
+indent_size = 2
+insert_final_newline = ignore
 
 [*.html]
 quote_type = double
+indent_size = 2

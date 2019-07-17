@@ -1,19 +1,22 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+*/node_modules
 /.pnp
 .pnp.js
+
+# cache
+*/**/__pycache__
 
 # mutation tests
 .stryker-tmp
 
 # testing
-/coverage
-/reports
+*/coverage
+*/reports
 
 # production
-/build
+*/build
 
 # misc
 .DS_Store

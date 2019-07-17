@@ -1,4 +1,4 @@
-import { configure, mount, shallow, render } from 'enzyme';
+import { configure, shallow } from 'enzyme';
 import React from 'react';
 import Adapter from 'enzyme-adapter-react-16';
 import TODOList from './TODOList.js';
