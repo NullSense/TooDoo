@@ -5,6 +5,9 @@
 /.pnp
 .pnp.js
 
+# cache
+*/**/__pycache__
+
 # mutation tests
 .stryker-tmp
 
