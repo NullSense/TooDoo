@@ -27,6 +27,16 @@ DEBUG = False
 
 ALLOWED_HOSTS = [os.environ['HOST']]
 
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+SECURE_HSTS_SECONDS = 360 # time out non https users
+SECURE_CONTENT_TYPE_NOSNIFF = True # prevent user uploaded file sniffing
+SECURE_BROWSER_XSS_FILTER = True # cross site scripting protection
+X_FRAME_OPTIONS = "DENY" # clickjacking protection
+SECURE_HSTS_PRELOAD = True # submit site to browser preload list
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True # prevent attack on subdomain from insecure connection
+
 # Application definition
 
 INSTALLED_APPS = [
