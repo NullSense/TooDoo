@@ -1,0 +1,65 @@
+/* prettier-ignore */
+@import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
+
+:root {
+  /* define color scheme */
+  --grey1:      #f8f8fa;
+  --grey2:      #e5e6eb;
+  --grey3:      #d2d4dc;
+  --grey4:      #c0c2ce;
+  --grey5:      #afafaf;
+  /* define item hue color */
+  --blue:       #5bc0eb;
+  --yellow:     #fde74c;
+  --green:      #9bc53d;
+  --red:        #e55934;
+  --orange:     #fa7921;
+  /* define item pastell color */
+  --p-blue:     #a8e6cf;
+  --p-green:    #dcedc1;
+  --p-orange:   #ffd3b6;
+  --p-magenta:  #ffaaa5;
+  --p-red:      #ff8b94;
+}
+
+body {
+  background: url('./res/email-pattern.png');
+  background-repeat: repeat;
+  font-family: "Raleway";
+  font-size: 24px;
+  color: #36454F;
+  text-align: center;
+}
+
+.mainpane {
+  width: 768px;
+  height: auto;
+  background-color: var(--grey1);
+  margin: auto;
+  padding: 10px 0 10px 0;
+}
+
+footer {
+  font-size: 12px;
+}
+
+/* media queries */
+/* phones and tablets */
+@media only screen and (max-width: 768px) {
+  h1 {
+    font-size: 5vw;
+  }
+  .mainpane {
+    width: 100%;
+  }
+}
+
+/* laptops and desktops */
+@media only screen and (min-width: 769px) {
+  h1 {
+    font-size: 39px;
+  }
+  .mainpane {
+    width: 700px;
+  }
+}

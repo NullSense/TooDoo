@@ -20,13 +20,21 @@ class TodoList extends Component {
 
   render() {
     return (
-      <section className="mainpane">
-        <InputBar value={this.state.input} handleChange={this.handleChange.bind(this)} />
-        <OptionPane />
-        <section className="itempane">
-          <TodoItem key={0} id={0} value={''} color={''} completed={false} created={Date.now().toString()} />
+      <div>
+        <header>
+          <h1>TooDoo.ml</h1>
+        </header>
+        <section className="mainpane">
+          <InputBar value={this.state.input} handleChange={this.handleChange.bind(this)} />
+          <OptionPane />
+          <section className="itempane">
+            <TodoItem key={0} id={0} value={''} color={''} completed={false} created={Date.now().toString()} />
+          </section>
         </section>
-      </section>
+        <footer>
+          <p>toodoo.ml by salsa20 & aerial</p>
+        </footer>
+      </div>
     );
   }
 }
