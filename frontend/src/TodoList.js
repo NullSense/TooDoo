@@ -23,7 +23,9 @@ class TodoList extends Component {
       <section className="mainpane">
         <InputBar value={this.state.input} handleChange={this.handleChange.bind(this)} />
         <OptionPane />
-        <section className="itempane"></section>
+        <section className="itempane">
+          <TodoItem key={0} id={0} value={''} color={''} completed={false} created={Date.now().toString()} />
+        </section>
       </section>
     );
   }

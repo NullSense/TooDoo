@@ -19,8 +19,8 @@ const InputBar = props => {
  * prop type validaton
  */
 InputBar.propTypes = {
-  value: PropTypes.string,
-  handleChange: PropTypes.func
+  value: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired
 };
 
 export default InputBar;
