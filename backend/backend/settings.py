@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '$DJANGO_SECRET_KEY'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', '$URL_STAGING', 'backend', '$VPS_IP_STAGING']
+ALLOWED_HOSTS = ['toodoo.ml']
 
 # Application definition
 
@@ -42,10 +42,10 @@ INSTALLED_APPS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'http://localhost:8000',
     'http://localhost:8080',
 ]
+
+CORS_URLS_REGEX = r'^/api/.*$'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -88,7 +88,7 @@ DATABASES = {
         'NAME': 'todo',
         'USER': 'postgres',
         'PASSWORD': 'redacted',
-        'HOST': '127.0.0.1',
+        'HOST': 'postgres',
         'PORT': '5432',
     }
 }
@@ -129,5 +129,5 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/django_static/'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")

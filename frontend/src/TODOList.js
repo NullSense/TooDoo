@@ -39,7 +39,7 @@ class TODOList extends React.Component {
    * load Item through API call
    */
   async loadItems() {
-    const response = await fetch('http://127.0.0.1:8000/api/todos/');
+    const response = await fetch('https://toodoo.ml/api/todos/');
     const json = await response.json();
 
     // first filter items and check if their id is already contained in state,
