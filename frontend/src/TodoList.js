@@ -18,6 +18,13 @@ class TodoList extends Component {
     });
   }
 
+  addItem(event) {
+    this.setState(prev => {
+      return { input: '', entries: [...prev.entries, { value: prev.input }] };
+    });
+    event.preventDefault();
+  }
+
   render() {
     return (
       <div>
@@ -25,10 +32,23 @@ class TodoList extends Component {
           <h1>TooDoo.ml</h1>
         </header>
         <section className="mainpane">
-          <InputBar value={this.state.input} handleChange={this.handleChange.bind(this)} />
+          <InputBar
+            value={this.state.input}
+            handleChange={this.handleChange.bind(this)}
+            addItem={this.addItem.bind(this)}
+          />
           <OptionPane />
           <section className="itempane">
-            <TodoItem key={0} id={0} value={''} color={''} completed={false} created={Date.now().toString()} />
+            {this.state.entries.map(entry => (
+              <TodoItem
+                key={0}
+                id={0}
+                value={entry.value}
+                color={''}
+                completed={false}
+                created={Date.now().toString()}
+              />
+            ))}
           </section>
         </section>
         <footer>
