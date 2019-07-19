@@ -70,25 +70,13 @@ describe('TODOList', () => {
 
   // loadItem should correctly make an api call
   // TODO: mock api call
-  it('should make a proper api call', async () => {
-    component.setState({
-      items: []
-    });
-    expect(component.state().items.length).toEqual(0);
-    await component.instance().loadItems();
-    expect(component.state().items.length).toEqual(1);
-    expect(component.state().items[0]).toEqual({ id: 1, entry: 'delectus aut autem' });
-  });
-  // it('should make an api call on button click', async () => {
+  // it('should make a proper api call', async () => {
   //   component.setState({
   //     items: []
   //   });
   //   expect(component.state().items.length).toEqual(0);
-  //   component
-  //     .find('button')
-  //     .at(1)
-  //     .simulate('click');
-  //   expect(component.state().items.length).toEqual(1); // this is called before the async returns....
+  //   await component.instance().loadItems();
+  //   expect(component.state().items.length).toEqual(1);
   //   expect(component.state().items[0]).toEqual({ id: 1, entry: 'delectus aut autem' });
   // });
 });
