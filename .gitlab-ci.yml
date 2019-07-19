@@ -52,7 +52,7 @@ staging:
     # rsync built files to the docker build stage
     - rsync -ave "ssh -p $VPS_PORT_STAGING" --delete frontend/build backend/backend $VPS_USER@$VPS_IP_STAGING:/home/$VPS_USER/docker/
     # run docker-compose with nginx
-    - ssh -p $VPS_PORT_STAGING $VPS_USER@$VPS_IP_STAGING "cd docker/ && docker-compose down && docker-compose up -d"
+    - ssh -p $VPS_PORT_STAGING $VPS_USER@$VPS_IP_STAGING "cd docker/ && docker-compose down && docker-compose up --build -d"
   cache: {}
   only:
     - master
