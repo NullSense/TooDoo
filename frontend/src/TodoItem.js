@@ -5,7 +5,9 @@ const TodoItem = props => {
   return (
     <li className="todoitem">
       <input type="checkbox" className="checkitem" />
-      <button className="delete">x</button>
+      <button className="delete" onClick={props.delete}>
+        x
+      </button>
       <label>{props.value}</label>
       <hr />
       <footer>{props.created}</footer>
@@ -21,7 +23,8 @@ TodoItem.propTypes = {
   value: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
   completed: PropTypes.bool.isRequired,
-  created: PropTypes.string.isRequired
+  created: PropTypes.string.isRequired,
+  delete: PropTypes.func.isRequired
 };
 
 export default TodoItem;

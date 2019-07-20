@@ -34,6 +34,15 @@ class TodoList extends Component {
     event.preventDefault();
   }
 
+  deleteItem(id) {
+    this.setState(prev => {
+      return {
+        input: prev.input,
+        entries: prev.entries.filter(entry => entry.id !== id)
+      };
+    });
+  }
+
   render() {
     // specify itempane, which does not get rendered if there are no items
     const itempane =
@@ -47,6 +56,7 @@ class TodoList extends Component {
               color={''}
               completed={false}
               created={entry.created}
+              delete={this.deleteItem.bind(this, entry.id)}
             />
           ))}
         </ul>
