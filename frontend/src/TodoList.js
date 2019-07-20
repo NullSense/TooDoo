@@ -26,6 +26,16 @@ class TodoList extends Component {
   }
 
   render() {
+    // specify itempane, which does not get rendered if there are no items
+    const itempane =
+      this.state.entries.length !== 0 ? (
+        <ul className="itempane">
+          {this.state.entries.map(entry => (
+            <TodoItem key={0} id={0} value={entry.value} color={''} completed={false} created={Date.now().toString()} />
+          ))}
+        </ul>
+      ) : null;
+
     return (
       <div>
         <header>
@@ -38,18 +48,7 @@ class TodoList extends Component {
             addItem={this.addItem.bind(this)}
           />
           <OptionPane />
-          <section className="itempane">
-            {this.state.entries.map(entry => (
-              <TodoItem
-                key={0}
-                id={0}
-                value={entry.value}
-                color={''}
-                completed={false}
-                created={Date.now().toString()}
-              />
-            ))}
-          </section>
+          {itempane}
         </section>
         <footer>
           <p>toodoo.ml by salsa20 & aerial</p>
