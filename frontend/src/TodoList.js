@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
 import InputBar from './InputBar.js';
 import OptionPane from './OptionPane.js';
 import TodoItem from './TodoItem.js';
@@ -19,9 +20,17 @@ class TodoList extends Component {
   }
 
   addItem(event) {
-    this.setState(prev => {
-      return { input: '', entries: [...prev.entries, { value: prev.input }] };
-    });
+    if (this.state.input !== '') {
+      this.setState(prev => {
+        return {
+          input: '',
+          entries: [
+            ...prev.entries,
+            { id: uuid.v1(), value: prev.input, created: new Date(Date.now()).toLocaleString() }
+          ]
+        };
+      });
+    }
     event.preventDefault();
   }
 
@@ -31,7 +40,14 @@ class TodoList extends Component {
       this.state.entries.length !== 0 ? (
         <ul className="itempane">
           {this.state.entries.map(entry => (
-            <TodoItem key={0} id={0} value={entry.value} color={''} completed={false} created={Date.now().toString()} />
+            <TodoItem
+              key={entry.id}
+              id={entry.id}
+              value={entry.value}
+              color={''}
+              completed={false}
+              created={entry.created}
+            />
           ))}
         </ul>
       ) : null;
