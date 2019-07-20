@@ -35,6 +35,16 @@ h1 {
   /* color: var(--p-magenta); */
 }
 
+input {
+  font-family: "Raleway";
+  font-size: 24px;
+}
+
+input:focus {
+  outline-offset: 0;
+  outline: none;
+}
+
 .mainpane {
   width: 768px;
   height: auto;
@@ -46,17 +56,19 @@ h1 {
 
 .inputwrapper {
   padding: 5px 20px 5px 20px;
+  margin: 0 10px 0 0;
 }
 
+/* TODO: remove redundency */
 .newtodo {
-  width: auto;
+  width: 100%;
   padding: 8px 4px 8px 4px;
   margin: 6px 0 6px 0;
   background-color: var(--grey1);
   border-style: solid;
   border-width: 1px;
   border-color: var(--grey5);
-  border-radius: 8px;
+  border-radius: 5px;
 }
 
 .itempane {
@@ -64,6 +76,7 @@ h1 {
 }
 
 .todoitem {
+  position: relative;
   text-align: justify;
   list-style-type: none;
   padding: 8px 4px 8px 4px;
@@ -72,11 +85,24 @@ h1 {
   border-style: solid;
   border-width: 1px;
   border-color: var(--grey5);
-  border-radius: 8px;
+  border-radius: 5px;
+}
+
+.delete {
+  display: inline;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-style: none;
+}
+
+.delete:focus {
+  outline: none;
 }
 
 footer {
-  margin: 40px 0 0 0;
+  margin: 20px 0 0 0;
   font-size: 12px;
 }
 
