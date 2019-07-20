@@ -8,6 +8,12 @@
   --grey3:      #d2d4dc;
   --grey4:      #c0c2ce;
   --grey5:      #afafaf;
+  /* transparent */
+  --t-grey1:      #f8f8fa88;
+  --t-grey2:      #e5e6eb88;
+  --t-grey3:      #d2d4dc88;
+  --t-grey4:      #c0c2ce88;
+  --t-grey5:      #afafaf88;
   /* define item hue color */
   --blue:       #5bc0eb;
   --yellow:     #fde74c;
@@ -38,6 +44,7 @@ h1 {
 input {
   font-family: "Raleway";
   font-size: 24px;
+  cursor: text;
 }
 
 input:focus {
@@ -50,8 +57,8 @@ input:focus {
   height: auto;
   margin: auto;
   padding: 10px 0 10px 0;
-  background-image: linear-gradient(180deg, var(--grey2) , var(--grey4));
-  box-shadow: 0 5px 10px 5px hsl(0, 0%, 70%);
+  background-image: linear-gradient(180deg, var(--t-grey1) , var(--t-grey4));
+  box-shadow: 0 5px 10px 5px hsl(0, 0%, 75%);
 }
 
 .inputwrapper {
