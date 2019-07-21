@@ -39,6 +39,7 @@ body {
 
 h1 {
   /* color: var(--p-magenta); */
+  cursor: default;
 }
 
 input:focus {
@@ -151,11 +152,11 @@ input:focus {
 
 @keyframes expand-option-pane {
   0% { height: 20px }
-  100% { height: 100px }
+  100% { height: 70px }
 }
 
 @keyframes retract-option-pane {
-  0% { height: 100px }
+  0% { height: 70px }
   100% { height: 20px }
 }
 
@@ -170,6 +171,7 @@ input:focus {
   padding: 3px;
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
+  cursor: pointer;
 }
 
 .options-toggle.open {
@@ -208,11 +210,117 @@ input:focus {
   }
 }
 
+.options-selection {
+  position: absolute;
+  top: 30px;
+  left: auto;
+  margin: auto;
+  height: 40%;
+  width: 100%;
+  /* display: flex; */
+  opacity: 0;
+}
+
+.options-selection.open {
+  animation-name: expand-option-selection;
+  animation-duration: 0.7s;
+  /* animation-timing-function: ease; */
+  animation-fill-mode: forwards;
+}
+
+.options-selection.closed {
+  animation-name: retract-option-selection;
+  animation-duration: 0.7s;
+  /* animation-timing-function: ease; */
+  animation-fill-mode: forwards;
+}
+
+@keyframes expand-option-selection {
+  0% {
+    opacity: 0;
+    height: 0%;
+  }
+  38% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    height: 40%;
+  }
+}
+
+@keyframes retract-option-selection {
+  0% {
+    opacity: 1;
+    height: 40%;
+  }
+  20% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    height: 0%;
+  }
+}
+
+.options-button {
+  margin: 0 20px 0 20px;
+  height: 100%;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.options-button.open {
+  animation-name: show-button;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+}
+
+.options-button.closed {
+  animation-name: hide-button;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes show-button {
+  38% {
+    visibility: hidden;
+  }
+  39% {
+    visibility: visible;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+
+@keyframes hide-button {
+  29% {
+    visibility: visible;
+  }
+  30% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+
 hr {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
   opacity: 0.5;
+}
+
+footer {
+  cursor: default;
 }
 
 .mainfooter {

@@ -1,13 +1,5 @@
 import React, { Component } from 'react';
 
-// const OptionPane = props => {
-//   return (
-//     <div>
-//       <input type="checkbox" className="optionopen" />
-//     </div>
-//   );
-// };
-
 class OptionPane extends Component {
   constructor(props) {
     super(props);
@@ -27,21 +19,15 @@ class OptionPane extends Component {
   }
 
   render() {
+    const panestate = this.state.open === true ? ' open' : this.state.open === false ? ' closed' : '';
     return (
-      <div
-        className={this.state.open === true ? 'options open' : this.state.open === false ? 'options closed' : 'options'}
-      >
-        <input
-          className={
-            this.state.open === true
-              ? 'options-toggle open'
-              : this.state.open === false
-              ? 'options-toggle closed'
-              : 'options-toggle'
-          }
-          type="checkbox"
-          onClick={this.togglePane.bind(this)}
-        />
+      <div className={'options' + panestate}>
+        <input className={'options-toggle' + panestate} type="checkbox" onClick={this.togglePane.bind(this)} />
+        <div className={'options-selection' + panestate}>
+          <button className={'options-button' + panestate} type="submit">
+            show
+          </button>
+        </div>
       </div>
     );
   }
