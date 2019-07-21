@@ -130,6 +130,34 @@ input:focus {
   transition: 0.3s;
 }
 
+.options {
+  height: 10px;
+}
+
+.open {
+  animation-name: expand-option-pane;
+  animation-duration: 0.7s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+.closed {
+  animation-name: retract-option-pane;
+  animation-duration: 0.7s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes expand-option-pane {
+  0% { height: 10px }
+  100% { height: 100px }
+}
+
+@keyframes retract-option-pane {
+  0% { height: 100px }
+  100% { height: 10px }
+}
+
 hr {
   width: 90%;
   margin-left: auto;
