@@ -20,12 +20,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [os.environ['HOST']]
+ALLOWED_HOSTS = [os.getenv('HOST')]
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
@@ -53,6 +53,7 @@ INSTALLED_APPS = [
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080',
+    #'http://localhost:3000', # only uncomment in development
 ]
 
 CORS_URLS_REGEX = r'^/api/.*$'
@@ -92,15 +93,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-POSTGRES_USER = os.environ['POSTGRES_USER']
-POSTGRES_PASSWORD = os.environ['POSTGRES_PASSWORD']
+POSTGRES_USER = os.getenv('POSTGRES_USER')
+POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+POSTGRES_HOST = os.getenv('POSTGRES_HOST')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'todo',
         'USER': POSTGRES_USER,
         'PASSWORD': POSTGRES_PASSWORD,
-        'HOST': 'postgres',
+        'HOST': POSTGRES_HOST,
         'PORT': '5432',
     }
 }
