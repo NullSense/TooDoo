@@ -9,8 +9,17 @@ class TodoList extends Component {
     super(props);
     this.state = {
       input: '',
-      entries: []
+      entries: [],
+      hide: false
     };
+  }
+
+  hideFinished() {
+    this.setState(prev => {
+      return {
+        hide: !prev.hide
+      };
+    });
   }
 
   handleChange(event) {
@@ -80,11 +89,15 @@ class TodoList extends Component {
   }
 
   render() {
+    let currEntries = this.state.entries;
+    if (this.state.hide) {
+      currEntries = currEntries.filter(entry => !entry.checked);
+    }
     // specify itempane, which does not get rendered if there are no items
     const itempane =
       this.state.entries.length !== 0 ? (
         <ul className="itempane">
-          {this.state.entries
+          {currEntries
             .map(entry => (
               <TodoItem
                 key={entry.id}
@@ -112,7 +125,7 @@ class TodoList extends Component {
             handleChange={this.handleChange.bind(this)}
             addItem={this.addItem.bind(this)}
           />
-          <OptionPane />
+          <OptionPane hideFinished={this.hideFinished.bind(this)} hiding={this.state.hide} />
           {itempane}
         </section>
         <footer className="mainfooter">

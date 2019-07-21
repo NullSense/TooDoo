@@ -42,7 +42,12 @@ const TodoItem = props => {
         x
       </button>
       <div>
-        <input type="checkbox" className="checkitem" onClick={props.check} />
+        <input
+          type="checkbox"
+          className="checkitem"
+          onClick={props.check}
+          defaultChecked={props.checked ? 'checked' : ''}
+        />
         <label className="itemlabel" style={crossedOut}>
           {props.value}
         </label>
