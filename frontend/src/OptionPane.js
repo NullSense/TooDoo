@@ -31,7 +31,17 @@ class OptionPane extends Component {
       <div
         className={this.state.open === true ? 'options open' : this.state.open === false ? 'options closed' : 'options'}
       >
-        <input className="optionopener" type="checkbox" onClick={this.togglePane.bind(this)} />
+        <input
+          className={
+            this.state.open === true
+              ? 'options-toggle open'
+              : this.state.open === false
+              ? 'options-toggle closed'
+              : 'options-toggle'
+          }
+          type="checkbox"
+          onClick={this.togglePane.bind(this)}
+        />
       </div>
     );
   }
