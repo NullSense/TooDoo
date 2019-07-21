@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const TodoItem = props => {
   return (
     <li className="todoitem">
-      <input type="checkbox" className="checkitem" />
+      <input type="checkbox" className="checkitem" onClick={props.check} />
       <button className="delete" onClick={props.delete}>
         x
       </button>
@@ -22,9 +22,10 @@ TodoItem.propTypes = {
   id: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
-  completed: PropTypes.bool.isRequired,
+  checked: PropTypes.bool.isRequired,
   created: PropTypes.string.isRequired,
-  delete: PropTypes.func.isRequired
+  delete: PropTypes.func.isRequired,
+  check: PropTypes.func.isRequired
 };
 
 export default TodoItem;

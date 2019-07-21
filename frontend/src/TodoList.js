@@ -26,7 +26,7 @@ class TodoList extends Component {
           input: '',
           entries: [
             ...prev.entries,
-            { id: uuid.v1(), value: prev.input, created: new Date(Date.now()).toLocaleString() }
+            { id: uuid.v1(), value: prev.input, created: new Date(Date.now()).toLocaleString(), checked: false }
           ]
         };
       });
@@ -43,13 +43,20 @@ class TodoList extends Component {
     });
   }
 
+  checkItem(id) {
+    this.setState(prev => {
+      return {
+        input: prev.input,
+        entries: prev.entries.map(entry => (entry.id === id ? { ...entry, checked: !entry.checked } : entry))
+      };
+    });
+  }
+
   /**
    * load Items on mount
    */
   async componentDidMount() {
-    console.log(process.env.REACT_APP_API_URL);
     const response = await fetch(process.env.REACT_APP_API_URL);
-    console.log(response);
     const json = await response.json();
 
     // first filter items and check if their id is already contained in state,
@@ -57,7 +64,7 @@ class TodoList extends Component {
     const results = json
       .filter(entry => this.state.entries.findIndex(state_entry => entry.id === state_entry.id) === -1)
       .map(entry => {
-        return { id: entry.id, value: entry.value, created: '' };
+        return { id: entry.id, value: entry.value, created: entry.created, checked: entry.value };
       });
 
     // set state
@@ -80,9 +87,10 @@ class TodoList extends Component {
               id={entry.id}
               value={entry.value}
               color={''}
-              completed={false}
+              checked={false}
               created={entry.created}
               delete={this.deleteItem.bind(this, entry.id)}
+              check={this.checkItem.bind(this, entry.id)}
             />
           ))}
         </ul>
