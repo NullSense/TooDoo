@@ -33,18 +33,12 @@ body {
   background-repeat: repeat;
   font-family: "Raleway";
   font-size: 24px;
-  color: #36454F;
+  color: #36454f;
   text-align: center;
 }
 
 h1 {
   /* color: var(--p-magenta); */
-}
-
-input {
-  font-family: "Raleway";
-  font-size: 24px;
-  cursor: text;
 }
 
 input:focus {
@@ -76,6 +70,9 @@ input:focus {
   border-width: 1px;
   border-color: var(--grey5);
   border-radius: 5px;
+  font-family: "Raleway";
+  font-size: 24px;
+  cursor: text;
 }
 
 .itempane {

@@ -26,7 +26,13 @@ class TodoList extends Component {
           input: '',
           entries: [
             ...prev.entries,
-            { id: uuid.v1(), value: prev.input, created: new Date(Date.now()).toLocaleString(), checked: false }
+            {
+              id: uuid.v1(),
+              value: prev.input,
+              created: new Date(Date.now()).toLocaleString(),
+              checked: false,
+              color: 'magenta'
+            }
           ]
         };
       });
@@ -37,7 +43,6 @@ class TodoList extends Component {
   deleteItem(id) {
     this.setState(prev => {
       return {
-        input: prev.input,
         entries: prev.entries.filter(entry => entry.id !== id)
       };
     });
@@ -46,7 +51,6 @@ class TodoList extends Component {
   checkItem(id) {
     this.setState(prev => {
       return {
-        input: prev.input,
         entries: prev.entries.map(entry => (entry.id === id ? { ...entry, checked: !entry.checked } : entry))
       };
     });
@@ -64,13 +68,12 @@ class TodoList extends Component {
     const results = json
       .filter(entry => this.state.entries.findIndex(state_entry => entry.id === state_entry.id) === -1)
       .map(entry => {
-        return { id: entry.id, value: entry.value, created: entry.created, checked: entry.value };
+        return { id: entry.id, value: entry.value, created: entry.created, checked: entry.value, color: entry.color };
       });
 
     // set state
     this.setState(prev => {
       return {
-        input: prev.input,
         entries: [...prev.entries, ...results]
       };
     });
@@ -86,9 +89,9 @@ class TodoList extends Component {
               key={entry.id}
               id={entry.id}
               value={entry.value}
-              color={''}
-              checked={false}
               created={entry.created}
+              checked={entry.checked}
+              color={entry.color}
               delete={this.deleteItem.bind(this, entry.id)}
               check={this.checkItem.bind(this, entry.id)}
             />
