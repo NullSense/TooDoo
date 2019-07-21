@@ -47,7 +47,8 @@ class TodoList extends Component {
    * load Items on mount
    */
   async componentDidMount() {
-    const response = await fetch('http://localhost:8000/api/todos/');
+    console.log(process.env.REACT_APP_API_URL);
+    const response = await fetch(process.env.REACT_APP_API_URL);
     console.log(response);
     const json = await response.json();
 
