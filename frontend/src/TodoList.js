@@ -84,18 +84,20 @@ class TodoList extends Component {
     const itempane =
       this.state.entries.length !== 0 ? (
         <ul className="itempane">
-          {this.state.entries.map(entry => (
-            <TodoItem
-              key={entry.id}
-              id={entry.id}
-              value={entry.value}
-              created={entry.created}
-              checked={entry.checked}
-              color={entry.color}
-              delete={this.deleteItem.bind(this, entry.id)}
-              check={this.checkItem.bind(this, entry.id)}
-            />
-          ))}
+          {this.state.entries
+            .map(entry => (
+              <TodoItem
+                key={entry.id}
+                id={entry.id}
+                value={entry.value}
+                created={entry.created}
+                checked={entry.checked}
+                color={entry.color}
+                delete={this.deleteItem.bind(this, entry.id)}
+                check={this.checkItem.bind(this, entry.id)}
+              />
+            ))
+            .reverse()}
         </ul>
       ) : null;
 
@@ -113,7 +115,7 @@ class TodoList extends Component {
           <OptionPane />
           {itempane}
         </section>
-        <footer>
+        <footer className="mainfooter">
           <p>toodoo.ml by salsa20 & aerial</p>
         </footer>
       </div>

@@ -73,6 +73,7 @@ input:focus {
   font-family: "Raleway";
   font-size: 24px;
   cursor: text;
+  box-shadow: 0 2px 4px 2px hsl(0, 0%, 77%);
 }
 
 .itempane {
@@ -83,13 +84,31 @@ input:focus {
   position: relative;
   text-align: justify;
   list-style-type: none;
-  padding: 8px 4px 8px 4px;
-  margin: 6px 0 6px 0;
+  padding: 8px 6px 8px 6px;
+  margin: 8px 0 8px 0;
   background-color: var(--grey1);
   border-style: solid;
   border-width: 1px;
   border-color: var(--grey5);
   border-radius: 5px;
+  transition: 0.4s;
+  word-break: break-all;
+  box-shadow: 0 2px 4px 2px hsl(0, 0%, 77%);
+}
+
+.itemlabel {
+  padding: 0 25px 0 30px;
+  line-height: 1.4;
+  display: block;
+}
+
+.checkitem {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  cursor: pointer;
 }
 
 .delete {
@@ -99,15 +118,33 @@ input:focus {
   top: 0;
   right: 0;
   border-style: none;
+  cursor: pointer;
 }
 
 .delete:focus {
   outline: none;
 }
 
-footer {
+.delete:hover {
+  color: #555555;
+  transition: 0.3s;
+}
+
+hr {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.5;
+}
+
+.mainfooter {
   margin: 20px 0 0 0;
   font-size: 12px;
+}
+
+.itemfooter {
+  font-size: 12px;
+  margin: 0 0 0 10px;
 }
 
 /* media queries */
