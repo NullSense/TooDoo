@@ -43,6 +43,31 @@ class TodoList extends Component {
     });
   }
 
+  /**
+   * load Items on mount
+   */
+  async componentDidMount() {
+    const response = await fetch('http://localhost:8000/api/todos/');
+    console.log(response);
+    const json = await response.json();
+
+    // first filter items and check if their id is already contained in state,
+    // then map them to valid entries (temp)
+    const results = json
+      .filter(entry => this.state.entries.findIndex(state_entry => entry.id === state_entry.id) === -1)
+      .map(entry => {
+        return { id: entry.id, value: entry.value, created: '' };
+      });
+
+    // set state
+    this.setState(prev => {
+      return {
+        input: prev.input,
+        entries: [...prev.entries, ...results]
+      };
+    });
+  }
+
   render() {
     // specify itempane, which does not get rendered if there are no items
     const itempane =
