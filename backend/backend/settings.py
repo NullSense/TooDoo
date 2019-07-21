@@ -23,12 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = False # DISABLE DURING DEV!!!
 
 ALLOWED_HOSTS = [os.getenv('HOST')]
 
 CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True # DISABLE DURING DEV
 
 SECURE_HSTS_SECONDS = 360 # time out non https users
 SECURE_CONTENT_TYPE_NOSNIFF = True # prevent user uploaded file sniffing
@@ -52,8 +52,8 @@ INSTALLED_APPS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080',
-    #'http://localhost:3000', # only uncomment in development
+    # 'http://127.0.0.1:8000',
+    # 'http://127.0.0.1:3000', # only uncomment in development
 ]
 
 CORS_URLS_REGEX = r'^/api/.*$'
