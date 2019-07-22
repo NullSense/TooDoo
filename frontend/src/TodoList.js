@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import uuid from 'uuid';
 import InputBar from './InputBar.js';
 import OptionPane from './OptionPane.js';
 import TodoItem from './TodoItem.js';
+import axios from 'axios';
 
 class TodoList extends Component {
   constructor(props) {
@@ -28,28 +28,21 @@ class TodoList extends Component {
     });
   }
 
-  addItem(event) {
+  async addItem(event) {
     if (this.state.input !== '') {
+      const newEntry = await axios.post(process.env.REACT_APP_API_URL, { entry: this.state.input });
       this.setState(prev => {
         return {
           input: '',
-          entries: [
-            ...prev.entries,
-            {
-              id: uuid.v1(),
-              entry: prev.input,
-              dateTime: new Date(Date.now()).toLocaleString(),
-              done: false,
-              color: 'magenta'
-            }
-          ]
+          entries: [...prev.entries, newEntry]
         };
       });
     }
     event.preventDefault();
   }
 
-  deleteItem(id) {
+  async deleteItem(id) {
+    await axios.delete(process.env.REACT_APP_API_URL + id);
     this.setState(prev => {
       return {
         entries: prev.entries.filter(entry => entry.id !== id)
@@ -57,7 +50,9 @@ class TodoList extends Component {
     });
   }
 
-  checkItem(id) {
+  async checkItem(id) {
+    const requestedEntry = await axios.get(process.env.REACT_APP_API_URL + id);
+    const updatedEntry = await axios.put(process.env.REACT_APP_API_URL + id, { done: !requestedEntry.done });
     this.setState(prev => {
       return {
         entries: prev.entries.map(entry => (entry.id === id ? { ...entry, done: !entry.done } : entry))
@@ -69,21 +64,21 @@ class TodoList extends Component {
    * load Items on mount
    */
   async componentDidMount() {
-    const response = await fetch(process.env.REACT_APP_API_URL);
-    const json = await response.json();
+    const response = await axios.get(process.env.REACT_APP_API_URL);
+    console.log(response.data);
 
     // first filter items and check if their id is already contained in state,
     // then map them to valid entries (temp)
-    const results = json
-      .filter(entry => this.state.entries.findIndex(state_entry => entry.id === state_entry.id) === -1)
-      .map(entry => {
-        return { id: entry.id, entry: entry.entry, dateTime: entry.dateTime, done: entry.entry, color: entry.color };
-      });
+    const results = response.data;
+    // .filter(entry => this.state.entries.findIndex(state_entry => entry.id === state_entry.id) === -1)
+    // .map(entry => {
+    //   return { id: entry.id, entry: entry.entry, dateTime: entry.dateTime, done: entry.done, color: entry.color };
+    // });
 
     // set state
     this.setState(prev => {
       return {
-        entries: [...prev.entries, ...results]
+        entries: results
       };
     });
   }
