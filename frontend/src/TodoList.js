@@ -37,9 +37,9 @@ class TodoList extends Component {
             ...prev.entries,
             {
               id: uuid.v1(),
-              value: prev.input,
-              created: new Date(Date.now()).toLocaleString(),
-              checked: false,
+              entry: prev.input,
+              dateTime: new Date(Date.now()).toLocaleString(),
+              done: false,
               color: 'magenta'
             }
           ]
@@ -60,7 +60,7 @@ class TodoList extends Component {
   checkItem(id) {
     this.setState(prev => {
       return {
-        entries: prev.entries.map(entry => (entry.id === id ? { ...entry, checked: !entry.checked } : entry))
+        entries: prev.entries.map(entry => (entry.id === id ? { ...entry, done: !entry.done } : entry))
       };
     });
   }
@@ -77,7 +77,7 @@ class TodoList extends Component {
     const results = json
       .filter(entry => this.state.entries.findIndex(state_entry => entry.id === state_entry.id) === -1)
       .map(entry => {
-        return { id: entry.id, value: entry.value, created: entry.created, checked: entry.value, color: entry.color };
+        return { id: entry.id, entry: entry.entry, dateTime: entry.dateTime, done: entry.entry, color: entry.color };
       });
 
     // set state
@@ -91,7 +91,7 @@ class TodoList extends Component {
   render() {
     let currEntries = this.state.entries;
     if (this.state.hide) {
-      currEntries = currEntries.filter(entry => !entry.checked);
+      currEntries = currEntries.filter(entry => !entry.done);
     }
     // specify itempane, which does not get rendered if there are no items
     const itempane =
@@ -102,9 +102,9 @@ class TodoList extends Component {
               <TodoItem
                 key={entry.id}
                 id={entry.id}
-                value={entry.value}
-                created={entry.created}
-                checked={entry.checked}
+                entry={entry.entry}
+                dateTime={entry.dateTime}
+                done={entry.done}
                 color={entry.color}
                 delete={this.deleteItem.bind(this, entry.id)}
                 check={this.checkItem.bind(this, entry.id)}
@@ -121,7 +121,7 @@ class TodoList extends Component {
         </header>
         <section className="mainpane">
           <InputBar
-            value={this.state.input}
+            entry={this.state.input}
             handleChange={this.handleChange.bind(this)}
             addItem={this.addItem.bind(this)}
           />

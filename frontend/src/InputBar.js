@@ -8,7 +8,7 @@ const InputBar = props => {
         <input
           type="text"
           className="newtodo"
-          value={props.value}
+          entry={props.entry}
           onChange={props.handleChange}
           placeholder="I need to ..."
         />
@@ -21,7 +21,7 @@ const InputBar = props => {
  * prop type validaton
  */
 InputBar.propTypes = {
-  value: PropTypes.string.isRequired,
+  entry: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   addItem: PropTypes.func.isRequired
 };

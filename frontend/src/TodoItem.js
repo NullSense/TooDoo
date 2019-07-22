@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const TodoItem = props => {
   let color;
-  if (props.checked) {
+  if (props.done) {
     color = 'checked';
   } else {
     color = props.color;
@@ -18,7 +18,7 @@ const TodoItem = props => {
     case 'red':
       style = { color: '#36454f', backgroundColor: 'hsl(355,100%,77%)', borderColor: 'hsl(355,100%,67%)' };
       break;
-    case 'magenta':
+    case 'crimson':
       style = { color: '#36454f', backgroundColor: 'hsl(3,100%,82%)', borderColor: 'hsl(3,100%,72%)' };
       break;
     case 'orange':
@@ -34,6 +34,9 @@ const TodoItem = props => {
       style = { color: '#c0c2ce', backgroundColor: '#e5e6eb' };
       crossedOut = { textDecoration: 'line-through' };
       break;
+    default:
+      style = { color: '#36454f', backgroundColor: '#f8f8fa' };
+      break;
   }
 
   return (
@@ -42,19 +45,14 @@ const TodoItem = props => {
         x
       </button>
       <div>
-        <input
-          type="checkbox"
-          className="checkitem"
-          onClick={props.check}
-          defaultChecked={props.checked ? 'checked' : ''}
-        />
+        <input type="checkbox" className="checkitem" onClick={props.check} defaultChecked={props.done ? 'done' : ''} />
         <label className="itemlabel" style={crossedOut}>
-          {props.value}
+          {props.entry}
         </label>
       </div>
       <br />
       <hr style={style} />
-      <footer className="itemfooter">{props.created}</footer>
+      <footer className="itemfooter">{props.dateTime}</footer>
     </li>
   );
 };
@@ -64,10 +62,10 @@ const TodoItem = props => {
  */
 TodoItem.propTypes = {
   id: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  entry: PropTypes.string.isRequired,
   color: PropTypes.string.isRequired,
-  checked: PropTypes.bool.isRequired,
-  created: PropTypes.string.isRequired,
+  done: PropTypes.bool.isRequired,
+  dateTime: PropTypes.string.isRequired,
   delete: PropTypes.func.isRequired,
   check: PropTypes.func.isRequired
 };
