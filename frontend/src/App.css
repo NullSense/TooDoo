@@ -80,6 +80,11 @@ input:focus {
   box-shadow: 0 2px 4px 2px hsl(0, 0%, 77%);
 }
 
+::placeholder {
+  opacity: 0.8;
+  color: var(--grey5);
+}
+
 .itempane {
   padding: 5px 20px 5px 20px;
 }
@@ -121,6 +126,8 @@ input:focus {
   position: absolute;
   top: 0;
   right: 0;
+  width: 30px;
+  height: 30px;
   border-style: none;
   cursor: pointer;
 }
@@ -130,8 +137,9 @@ input:focus {
 }
 
 .delete:hover {
-  color: #555555;
-  transition: 0.3s;
+  color: var(--grey5);
+  background-color: transparent;
+  transition: 0.25s;
 }
 
 .options {
