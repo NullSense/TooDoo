@@ -20,12 +20,22 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = False # DISABLE DURING DEV!!!
 
-ALLOWED_HOSTS = [os.environ['HOST']]
+ALLOWED_HOSTS = [os.getenv('HOST')]
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True # TODO: Change to True during deployment
+
+SECURE_HSTS_SECONDS = 360 # time out non https users
+SECURE_CONTENT_TYPE_NOSNIFF = True # prevent user uploaded file sniffing
+SECURE_BROWSER_XSS_FILTER = True # cross site scripting protection
+X_FRAME_OPTIONS = "DENY" # clickjacking protection
+SECURE_HSTS_PRELOAD = True # submit site to browser preload list
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True # prevent attack on subdomain from insecure connection
 
 # Application definition
 
@@ -42,7 +52,7 @@ INSTALLED_APPS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    'http://localhost:8080',
+    #'http://127.0.0.1:3000', # TODO: comment out during deployment
 ]
 
 CORS_URLS_REGEX = r'^/api/.*$'
@@ -82,15 +92,16 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-POSTGRES_USER = os.environ['POSTGRES_USER']
-POSTGRES_PASSWORD = os.environ['POSTGRES_PASSWORD']
+POSTGRES_USER = os.getenv('POSTGRES_USER')
+POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+POSTGRES_HOST = os.getenv('POSTGRES_HOST')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'todo',
         'USER': POSTGRES_USER,
         'PASSWORD': POSTGRES_PASSWORD,
-        'HOST': 'postgres',
+        'HOST': POSTGRES_HOST,
         'PORT': '5432',
     }
 }

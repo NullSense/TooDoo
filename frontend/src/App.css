@@ -1,86 +1,363 @@
-.App {
+/* prettier-ignore */
+@import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
+
+:root {
+  /* define color scheme */
+  --grey1:      #f8f8fa;
+  --grey2:      #e5e6eb;
+  --grey3:      #d2d4dc;
+  --grey4:      #c0c2ce;
+  --grey5:      #afafaf;
+  /* transparent */
+  --t-grey1:      #f8f8fa88;
+  --t-grey2:      #e5e6eb88;
+  --t-grey3:      #d2d4dc88;
+  --t-grey4:      #c0c2ce88;
+  --t-grey5:      #afafaf88;
+  /* define item hue color */
+  --blue:       #5bc0eb;
+  --yellow:     #fde74c;
+  --green:      #9bc53d;
+  --red:        #e55934;
+  --orange:     #fa7921;
+  /* define item pastell color */
+  --p-blue:     #a8e6cf;
+  --p-green:    #dcedc1;
+  --p-orange:   #ffd3b6;
+  --p-magenta:  #ffaaa5;
+  --p-red:      #ff8b94;
+}
+
+body {
+  background: url('./res/email-pattern.png');
+  background-repeat: repeat;
+  font-family: "Raleway";
+  font-size: 24px;
+  color: #36454f;
   text-align: center;
 }
 
-.App-header {
-  background-color: white;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+h1 {
+  /* color: var(--p-magenta); */
+  cursor: default;
 }
 
-.TODOList {
-  background-color: #283242;
-  height: 800px;
-  width: 500px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.TODOItem {
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 14px;
-  margin-bottom: 14px;
-  background-color: #cad0db;
-  color: black;
-  font-size: 20px;
-  text-align: center;
-  width: 80%;
-  height: 30px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.Button {
-  margin-left: auto;
-  margin-top: auto;
-  margin-left: 15px;
-  margin-right: 15px;
-  font-size: 20px;
-  border-radius: 10px;
-  height: 30px;
-  width: 15%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.container {
-  margin-top: 20px;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.DelEntry {
-  font-size: 17px;
-  margin-top: 14px;
-  margin-bottom: 14px;
-  border-radius: 10px;
-  height: 30px;
-  width: 15%;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.EntryWrapper {
-  margin-left: auto;
-  margin-right: auto;
-  width: 80%;
-  display: flex;
-}
-
-input,
-textarea {
-  border: none;
+input:focus {
+  outline-offset: 0;
   outline: none;
-  padding: 0px;
-  margin: 0px;
 }
 
-li {
-  list-style: '';
+.mainpane {
+  width: 768px;
+  height: auto;
+  margin: auto;
+  padding: 10px 0 10px 0;
+  background-image: linear-gradient(180deg, var(--t-grey1) , var(--t-grey4));
+  box-shadow: 0 5px 10px 5px hsl(0, 0%, 75%);
+}
+
+.inputwrapper {
+  padding: 5px 20px 5px 20px;
+  margin: 0 10px 0 0;
+}
+
+/* TODO: remove redundency */
+.newtodo {
+  width: 100%;
+  padding: 8px 4px 8px 4px;
+  margin: 6px 0 6px 0;
+  background-color: var(--grey1);
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--grey5);
+  border-radius: 5px;
+  font-family: "Raleway";
+  font-size: 24px;
+  cursor: text;
+  box-shadow: 0 2px 4px 2px hsl(0, 0%, 77%);
+}
+
+.itempane {
+  padding: 5px 20px 5px 20px;
+}
+
+.todoitem {
+  position: relative;
+  text-align: justify;
+  list-style-type: none;
+  padding: 8px 6px 8px 6px;
+  margin: 8px 0 8px 0;
+  background-color: var(--grey1);
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--grey5);
+  border-radius: 5px;
+  transition: 0.4s;
+  word-break: break-all;
+  box-shadow: 0 2px 4px 2px hsl(0, 0%, 77%);
+}
+
+.itemlabel {
+  padding: 0 25px 0 30px;
+  line-height: 1.4;
+  display: block;
+}
+
+.checkitem {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 7px;
+  left: 7px;
+  cursor: pointer;
+}
+
+.delete {
+  display: inline;
+  background-color: transparent;
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-style: none;
+  cursor: pointer;
+}
+
+.delete:focus {
+  outline: none;
+}
+
+.delete:hover {
+  color: #555555;
+  transition: 0.3s;
+}
+
+.options {
+  height: 20px;
+  position: relative;
+}
+
+.options.open {
+  animation-name: expand-option-pane;
+  animation-duration: 0.7s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+.options.closed {
+  animation-name: retract-option-pane;
+  animation-duration: 0.7s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes expand-option-pane {
+  0% { height: 20px }
+  100% { height: 70px }
+}
+
+@keyframes retract-option-pane {
+  0% { height: 70px }
+  100% { height: 20px }
+}
+
+.options-toggle {
+  position: absolute;
+  top: 3px;
+  left: 20px;
+  -webkit-appearance: none;
+  border: solid var(--grey4);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  cursor: pointer;
+}
+
+.options-toggle.open {
+  animation-name: turn-arrow-down;
+  animation-duration: 0.7s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+.options-toggle.closed {
+  animation-name: turn-arrow-right;
+  animation-duration: 0.7s;
+  animation-timing-function: ease;
+  animation-fill-mode: forwards;
+}
+
+@keyframes turn-arrow-down {
+  0% {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+  100% {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+}
+
+@keyframes turn-arrow-right {
+  0% {
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+  }
+  100% {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+  }
+}
+
+.options-selection {
+  position: absolute;
+  top: 30px;
+  left: auto;
+  margin: auto;
+  height: 40%;
+  width: 100%;
+  /* display: flex; */
+  opacity: 0;
+}
+
+.options-selection.open {
+  animation-name: expand-option-selection;
+  animation-duration: 0.7s;
+  /* animation-timing-function: ease; */
+  animation-fill-mode: forwards;
+}
+
+.options-selection.closed {
+  animation-name: retract-option-selection;
+  animation-duration: 0.7s;
+  /* animation-timing-function: ease; */
+  animation-fill-mode: forwards;
+}
+
+@keyframes expand-option-selection {
+  0% {
+    opacity: 0;
+    height: 0%;
+  }
+  38% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    height: 40%;
+  }
+}
+
+@keyframes retract-option-selection {
+  0% {
+    opacity: 1;
+    height: 40%;
+  }
+  20% {
+    opacity: 1;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    height: 0%;
+  }
+}
+
+.options-button {
+  margin: 0 20px 0 20px;
+  height: 100%;
+  cursor: pointer;
+  visibility: hidden;
+}
+
+.options-button.open {
+  animation-name: show-button;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+}
+
+.options-button.closed {
+  animation-name: hide-button;
+  animation-duration: 0.7s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes show-button {
+  38% {
+    visibility: hidden;
+  }
+  39% {
+    visibility: visible;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+
+@keyframes hide-button {
+  29% {
+    visibility: visible;
+  }
+  30% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: hidden;
+  }
+}
+
+hr {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  opacity: 0.5;
+}
+
+footer {
+  cursor: default;
+}
+
+.mainfooter {
+  margin: 30px 0 0 0;
+  font-size: 12px;
+}
+
+.itemfooter {
+  font-size: 12px;
+  margin: 0 0 0 10px;
+}
+
+ul {
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+/* media queries */
+/* phones and tablets */
+@media only screen and (max-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+  h1 {
+    font-size: 5vw;
+  }
+  .mainpane {
+    width: 100%;
+  }
+}
+
+/* laptops and desktops */
+@media only screen and (min-width: 769px) {
+  h1 {
+    font-size: 39px;
+  }
+  .mainpane {
+    width: 700px;
+  }
 }

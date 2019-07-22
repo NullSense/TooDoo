@@ -1,5 +1,7 @@
 import React from 'react';
-import TODOList from './TODOList.js';
+// import TODOList from './TODOList.js';
+import TodoList from './TodoList.js';
+// import './App.css';
 import './App.css';
 
 /**
@@ -9,7 +11,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <TODOList />
+        <TodoList />
       </header>
     </div>
   );
