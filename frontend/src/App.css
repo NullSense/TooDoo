@@ -1,13 +1,16 @@
 /* prettier-ignore */
-@import url("https://fonts.googleapis.com/css?family=Raleway&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
 
 :root {
+  /* main text color */
+  --main:         #36454f;
+   ;
   /* define color scheme */
-  --grey1:      #f8f8fa;
-  --grey2:      #e5e6eb;
-  --grey3:      #d2d4dc;
-  --grey4:      #c0c2ce;
-  --grey5:      #afafaf;
+  --grey1:        #f8f8fa;
+  --grey2:        #e5e6eb;
+  --grey3:        #d2d4dc;
+  --grey4:        #c0c2ce;
+  --grey5:        #afafaf;
   /* transparent */
   --t-grey1:      #f8f8fa88;
   --t-grey2:      #e5e6eb88;
@@ -15,25 +18,25 @@
   --t-grey4:      #c0c2ce88;
   --t-grey5:      #afafaf88;
   /* define item hue color */
-  --blue:       #5bc0eb;
-  --yellow:     #fde74c;
-  --green:      #9bc53d;
-  --red:        #e55934;
-  --orange:     #fa7921;
+  --blue:         #5bc0eb;
+  --yellow:       #fde74c;
+  --green:        #9bc53d;
+  --red:          #e55934;
+  --orange:       #fa7921;
   /* define item pastell color */
-  --p-blue:     #a8e6cf;
-  --p-green:    #dcedc1;
-  --p-orange:   #ffd3b6;
-  --p-magenta:  #ffaaa5;
-  --p-red:      #ff8b94;
+  --p-blue:       #a8e6cf;
+  --p-green:      #dcedc1;
+  --p-orange:     #ffd3b6;
+  --p-magenta:    #ffaaa5;
+  --p-red:        #ff8b94;
 }
 
 body {
   background: url('./res/email-pattern.png');
   background-repeat: repeat;
-  font-family: "Raleway";
+  font-family: "Open Sans";
   font-size: 24px;
-  color: #36454f;
+  color: var(--main);
   text-align: center;
 }
 
@@ -52,26 +55,26 @@ input:focus {
   height: auto;
   margin: auto;
   padding: 10px 0 10px 0;
-  background-image: linear-gradient(180deg, var(--t-grey1) , var(--t-grey4));
+  background-image: linear-gradient(180deg, var(--t-grey1), var(--t-grey4));
   box-shadow: 0 5px 10px 5px hsl(0, 0%, 75%);
 }
 
 .inputwrapper {
   padding: 5px 20px 5px 20px;
-  margin: 0 10px 0 0;
+  margin: 0 34px 0 0;
 }
 
 /* TODO: remove redundency */
 .newtodo {
   width: 100%;
-  padding: 8px 4px 8px 4px;
+  padding: 8px 16px 8px 16px;
   margin: 6px 0 6px 0;
   background-color: var(--grey1);
   border-style: solid;
   border-width: 1px;
   border-color: var(--grey5);
   border-radius: 5px;
-  font-family: "Raleway";
+  font-family: "Open Sans";
   font-size: 24px;
   cursor: text;
   box-shadow: 0 2px 4px 2px hsl(0, 0%, 77%);
@@ -152,11 +155,11 @@ input:focus {
 
 @keyframes expand-option-pane {
   0% { height: 20px }
-  100% { height: 70px }
+  100% { height: 80px }
 }
 
 @keyframes retract-option-pane {
-  0% { height: 70px }
+  0% { height: 80px }
   100% { height: 20px }
 }
 
@@ -212,13 +215,9 @@ input:focus {
 
 .options-selection {
   position: absolute;
-  top: 30px;
-  left: auto;
-  margin: auto;
-  height: 40%;
-  width: 100%;
-  /* display: flex; */
-  opacity: 0;
+  top: 35px;
+  /* width: 100%; */
+  height: 100px;
 }
 
 .options-selection.open {
@@ -270,10 +269,34 @@ input:focus {
 }
 
 .options-button {
+  -webkit-appearance: none;
   margin: 0 20px 0 20px;
+  padding: 2px 6px;
   height: 100%;
   cursor: pointer;
+  font: 400 14px "Open Sans";
+  color: var(--main);
+  background-color: var(--p-blue);
+  border-style: solid;
+  border-radius: 5px;
+  border-color: hsl(158,55%,68%);
+  border-image: none;
+  transition: 0.2s;
+  box-shadow: 0 2px 5px 1px hsl(0, 0%, 70%);
   visibility: hidden;
+}
+
+button:focus {
+  outline:0;
+}
+
+button:hover {
+  background-color: hsl(158,55%,88%);
+  border-color: hsl(158,55%,78%);
+}
+
+button::-moz-focus-inner {
+  border: 0;
 }
 
 .options-button.open {
@@ -289,7 +312,7 @@ input:focus {
 }
 
 @keyframes show-button {
-  38% {
+  0% {
     visibility: hidden;
   }
   39% {
@@ -301,10 +324,10 @@ input:focus {
 }
 
 @keyframes hide-button {
-  29% {
+  0% {
     visibility: visible;
   }
-  30% {
+  26% {
     visibility: hidden;
   }
   100% {
@@ -330,7 +353,7 @@ footer {
 
 .itemfooter {
   font-size: 12px;
-  margin: 0 0 0 10px;
+  margin: 0 0 0 5%;
 }
 
 ul {

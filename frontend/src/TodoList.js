@@ -81,6 +81,27 @@ class TodoList extends Component {
     });
   }
 
+  parseDateTime(dateTime) {
+    let time = new Date(dateTime);
+    let hours = time.getHours();
+    let minutes = time.getMinutes();
+
+    if (minutes < 10) {
+      minutes = '0' + minutes;
+    }
+
+    let suffix = 'AM';
+    if (hours >= 12) {
+      suffix = 'PM';
+      hours = hours - 12;
+    }
+    if (hours === 0) {
+      hours = 12;
+    }
+
+    return time.toDateString() + ' - ' + hours + ':' + minutes + ' ' + suffix;
+  }
+
   render() {
     let currEntries = this.state.entries;
     if (this.state.hide) {
@@ -96,7 +117,7 @@ class TodoList extends Component {
                 key={entry.id}
                 id={entry.id}
                 entry={entry.entry}
-                dateTime={entry.dateTime}
+                dateTime={this.parseDateTime(entry.dateTime)}
                 done={entry.done}
                 color={entry.color}
                 delete={this.deleteItem.bind(this, entry.id)}
