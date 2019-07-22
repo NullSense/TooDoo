@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # DISABLE DURING DEV!!!
+DEBUG = False # DISABLE DURING DEV!!!
 
 ALLOWED_HOSTS = [os.getenv('HOST')]
 
@@ -52,7 +52,7 @@ INSTALLED_APPS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:3000', # TODO: comment out during deployment
+    #'http://127.0.0.1:3000', # TODO: comment out during deployment
 ]
 
 CORS_URLS_REGEX = r'^/api/.*$'
