@@ -103,10 +103,8 @@ class TodoList extends Component {
   }
 
   render() {
-    let currEntries = this.state.entries;
-    if (this.state.hide) {
-      currEntries = currEntries.filter(entry => !entry.done);
-    }
+    const currEntries = this.state.hide ? this.state.entries.filter(entry => !entry.done) : this.state.entries;
+
     // specify itempane, which does not get rendered if there are no items
     const itempane =
       this.state.entries.length !== 0 ? (

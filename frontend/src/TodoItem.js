@@ -1,7 +1,15 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class TodoItem extends PureComponent {
+class TodoItem extends Component {
+  shouldComponentUpdate(nextProps) {
+    if (JSON.stringify(this.props) === JSON.stringify(nextProps)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   render() {
     let color;
     if (this.props.done) {
