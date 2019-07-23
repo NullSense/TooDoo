@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class OptionPane extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+
+    // local state which determines if optionpane is open
     this.state = {
       open: undefined
     };
   }
 
+  /**
+   * open/close pane
+   */
   togglePane() {
     if (this.state.open === undefined) {
       this.setState({ open: true });

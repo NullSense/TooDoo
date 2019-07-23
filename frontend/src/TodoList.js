@@ -7,27 +7,38 @@ import axios from 'axios';
 class TodoList extends Component {
   constructor(props) {
     super(props);
+
+    // the one and only state!
     this.state = {
-      input: '',
-      entries: [],
-      hide: false
+      input: '', // the current input of the inputfield
+      entries: [], // the list of entries, which is used a quasi-cache
+      isHidden: false // boolean which determines if checked items are shown
     };
   }
 
-  hideFinished() {
+  /**
+   * Handles hiding items when option selected
+   */
+  hideCompletedItems() {
     this.setState(prev => {
       return {
-        hide: !prev.hide
+        isHidden: !prev.isHidden
       };
     });
   }
 
+  /**
+   * handles the state of the input (controlled input)
+   */
   handleChange(event) {
     this.setState({
       input: event.target.value
     });
   }
 
+  /**
+   * Add item if input isn't empty and do post api call
+   */
   async addItem(event) {
     event.preventDefault();
     if (this.state.input !== '') {
@@ -41,6 +52,10 @@ class TodoList extends Component {
     }
   }
 
+  /**
+   * Delete item and do delete api call
+   *
+   */
   async deleteItem(id) {
     await axios.delete(process.env.REACT_APP_API_URL + id);
     this.setState(prev => {
@@ -50,10 +65,13 @@ class TodoList extends Component {
     });
   }
 
+  /**
+   * Mark Item as checked and do put api call
+   */
   async checkItem(id) {
     const requestedEntry = await axios.get(process.env.REACT_APP_API_URL + id + '/');
     axios.put(process.env.REACT_APP_API_URL + id + '/', {
-      entry: requestedEntry.data.entry,
+      entry: requestedEntry.data.entry, // TODO: make api call work without entry
       done: !requestedEntry.data.done
     });
     this.setState(prev => {
@@ -81,6 +99,10 @@ class TodoList extends Component {
     });
   }
 
+  /**
+   * Format dateTime for better readability
+   * @param {string} dateTime the timestamp of the item
+   */
   parseDateTime(dateTime) {
     let time = new Date(dateTime);
     let hours = time.getHours();
@@ -103,7 +125,8 @@ class TodoList extends Component {
   }
 
   render() {
-    const currEntries = this.state.hide ? this.state.entries.filter(entry => !entry.done) : this.state.entries;
+    // If hiding completed items is true, prune those items
+    const currEntries = this.state.isHidden ? this.state.entries.filter(entry => !entry.done) : this.state.entries;
 
     // specify itempane, which does not get rendered if there are no items
     const itempane =
@@ -137,7 +160,7 @@ class TodoList extends Component {
             handleChange={this.handleChange.bind(this)}
             addItem={this.addItem.bind(this)}
           />
-          <OptionPane hideFinished={this.hideFinished.bind(this)} hiding={this.state.hide} />
+          <OptionPane hideCompletedItems={this.hideCompletedItems.bind(this)} hiding={this.state.isHidden} />
           {itempane}
         </section>
         <footer className="mainfooter">

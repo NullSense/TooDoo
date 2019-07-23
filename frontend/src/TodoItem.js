@@ -5,9 +5,15 @@ class TodoItem extends Component {
   constructor() {
     super();
 
+    // create reference to delete-button (for disabling it on click)
     this.btn = React.createRef();
   }
 
+  /**
+   * Takes care of performance issues, compares the current props with next props (excluding passed on functions.
+   * If equal, don't rerender.
+   * @param {object} nextProps the 'future' props of this component
+   */
   shouldComponentUpdate(nextProps) {
     if (JSON.stringify(this.props) === JSON.stringify(nextProps)) {
       return false;
@@ -16,12 +22,17 @@ class TodoItem extends Component {
     }
   }
 
+  /**
+   * A middleman function for disabling the delete button on click. This is needed, since the passed on
+   * deleteItem() function is an async api call, which makes the delete button susceptible for multiple activations
+   */
   deleteItem() {
     this.btn.current.setAttribute('disabled', '');
     this.props.delete();
   }
 
   render() {
+    // determine if the item is checked
     let color;
     if (this.props.done) {
       color = 'checked';
@@ -29,6 +40,7 @@ class TodoItem extends Component {
       color = this.props.color;
     }
 
+    // define the color and style of the item
     let style;
     let crossedOut = null;
     switch (color) {
