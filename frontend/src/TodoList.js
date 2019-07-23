@@ -12,7 +12,7 @@ class TodoList extends Component {
     this.state = {
       input: '', // the current input of the inputfield
       entries: [], // the list of entries, which is used a quasi-cache
-      isHidden: false // boolean which determines if checked items are shown
+      areHidden: false // boolean which determines if checked items are shown
     };
   }
 
@@ -22,7 +22,7 @@ class TodoList extends Component {
   hideCompletedItems() {
     this.setState(prev => {
       return {
-        isHidden: !prev.isHidden
+        areHidden: !prev.isHidden
       };
     });
   }
@@ -126,7 +126,7 @@ class TodoList extends Component {
 
   render() {
     // If hiding completed items is true, prune those items
-    const currEntries = this.state.isHidden ? this.state.entries.filter(entry => !entry.done) : this.state.entries;
+    const currEntries = this.state.areHidden ? this.state.entries.filter(entry => !entry.done) : this.state.entries;
 
     // specify itempane, which does not get rendered if there are no items
     const itempane =
@@ -160,7 +160,7 @@ class TodoList extends Component {
             handleChange={this.handleChange.bind(this)}
             addItem={this.addItem.bind(this)}
           />
-          <OptionPane hideCompletedItems={this.hideCompletedItems.bind(this)} hiding={this.state.isHidden} />
+          <OptionPane hideCompletedItems={this.hideCompletedItems.bind(this)} areHidden={this.state.areHidden} />
           {itempane}
         </section>
         <footer className="mainfooter">
