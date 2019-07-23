@@ -2,12 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class TodoItem extends Component {
+  constructor() {
+    super();
+
+    this.btn = React.createRef();
+  }
+
   shouldComponentUpdate(nextProps) {
     if (JSON.stringify(this.props) === JSON.stringify(nextProps)) {
       return false;
     } else {
       return true;
     }
+  }
+
+  deleteItem() {
+    this.btn.current.setAttribute('disabled', '');
+    this.props.delete();
   }
 
   render() {
@@ -50,7 +61,7 @@ class TodoItem extends Component {
 
     return (
       <li style={style} className="todoitem">
-        <button className="delete" onClick={this.props.delete}>
+        <button ref={this.btn} className="delete" onClick={this.deleteItem.bind(this)}>
           x
         </button>
         <div>
