@@ -2,13 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class OptionPane extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
+
+    // local state which determines if optionpane is open
     this.state = {
       open: undefined
     };
   }
 
+  /**
+   * open/close pane
+   */
   togglePane() {
     if (this.state.open === undefined) {
       this.setState({ open: true });
@@ -25,8 +30,8 @@ class OptionPane extends Component {
       <div className={'options' + panestate}>
         <input className={'options-toggle' + panestate} type="checkbox" onClick={this.togglePane.bind(this)} />
         <div className={'options-selection' + panestate}>
-          <button className={'options-button' + panestate} type="submit" onClick={this.props.hideFinished}>
-            {this.props.hiding ? 'show finished' : 'hide finished'}
+          <button className={'options-button' + panestate} type="submit" onClick={this.props.hideCompletedItems}>
+            {this.props.areHidden ? 'show finished' : 'hide finished'}
           </button>
         </div>
       </div>
@@ -36,8 +41,8 @@ class OptionPane extends Component {
 
 // define prop types for OptionPane
 OptionPane.propTypes = {
-  hideFinished: PropTypes.func.isRequired,
-  hiding: PropTypes.bool.isRequired
+  hideCompletedItems: PropTypes.func.isRequired,
+  areHidden: PropTypes.bool.isRequired
 };
 
 export default OptionPane;
