@@ -22,7 +22,7 @@ class TodoList extends Component {
   hideCompletedItems() {
     this.setState(prev => {
       return {
-        areHidden: !prev.isHidden
+        areHidden: !prev.areHidden
       };
     });
   }
