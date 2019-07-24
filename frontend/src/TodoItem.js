@@ -10,7 +10,8 @@ class TodoItem extends Component {
     this.btn = React.createRef();
 
     this.state = {
-      isColorPickerOpen: false
+      isColorPickerOpen: false,
+      isEditable: true
     };
   }
 
@@ -20,10 +21,7 @@ class TodoItem extends Component {
    * @param {object} nextProps the 'future' props of this component
    */
   shouldComponentUpdate(nextProps, nextState) {
-    if (
-      JSON.stringify(this.props) === JSON.stringify(nextProps) &&
-      this.state.isColorPickerOpen === nextState.isColorPickerOpen
-    ) {
+    if (JSON.stringify(this.props) === JSON.stringify(nextProps) && this.state === nextState) {
       return false;
     } else {
       return true;
@@ -39,13 +37,28 @@ class TodoItem extends Component {
     this.props.deleteItem();
   }
 
+  handleKeyPressed(event) {
+    // console.log(event.currentTarget.textContent);
+    if (event.key === 'Enter') {
+      this.props.changeEntry(event.currentTarget.textContent);
+      this.setState(prev => {
+        return { isEditable: !prev.isEditable };
+      });
+    }
+  }
+
+  handleClick() {
+    this.setState(prev => {
+      return { isEditable: !prev.isEditable };
+    });
+  }
+
   toggleColorPicker() {
     this.setState(prev => {
       return {
         isColorPickerOpen: !prev.isColorPickerOpen
       };
     });
-    console.log(this.state.isColorPickerOpen);
   }
 
   render() {
@@ -89,6 +102,16 @@ class TodoItem extends Component {
         break;
     }
 
+    const label = this.state.isEditable && color !== 'checked' ? (
+      <div className="itemlabel" onKeyPress={this.handleKeyPressed.bind(this)} contentEditable>
+        {this.props.entry}
+      </div>
+    ) : (
+      <div className="itemlabel" style={crossedOut} onClick={this.handleClick.bind(this)}>
+        {this.props.entry}
+      </div>
+    );
+
     return (
       <li style={style} className="todoitem">
         <button ref={this.btn} className="delete" onClick={this.deleteItem.bind(this)}>
@@ -101,10 +124,8 @@ class TodoItem extends Component {
             onClick={this.props.checkItem}
             defaultChecked={this.props.done ? 'done' : ''}
           />
-          <label className="itemlabel" style={crossedOut}>
-            {this.props.entry}
-          </label>
         </div>
+        {label}
         <br />
         <hr style={style} />
         <button className="colorpicker-button button" onClick={this.toggleColorPicker.bind(this)} style={style}>
@@ -133,7 +154,8 @@ TodoItem.propTypes = {
   dateTime: PropTypes.string.isRequired,
   deleteItem: PropTypes.func.isRequired,
   checkItem: PropTypes.func.isRequired,
-  changeColor: PropTypes.func.isRequired
+  changeColor: PropTypes.func.isRequired,
+  changeEntry: PropTypes.func.isRequired
 };
 
 export default TodoItem;
