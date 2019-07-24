@@ -70,8 +70,7 @@ class TodoList extends Component {
    */
   async checkItem(id) {
     const requestedEntry = await axios.get(process.env.REACT_APP_API_URL + id + '/');
-    axios.put(process.env.REACT_APP_API_URL + id + '/', {
-      entry: requestedEntry.data.entry, // TODO: make api call work without entry
+    axios.patch(process.env.REACT_APP_API_URL + id + '/', {
       done: !requestedEntry.data.done
     });
     this.setState(prev => {
