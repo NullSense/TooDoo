@@ -54,13 +54,26 @@ class TodoList extends Component {
 
   /**
    * Delete item and do delete api call
-   *
    */
   async deleteItem(id) {
     await axios.delete(process.env.REACT_APP_API_URL + id);
     this.setState(prev => {
       return {
         entries: prev.entries.filter(entry => entry.id !== id)
+      };
+    });
+  }
+
+  /**
+   * Delete all ites
+   */
+  async deleteAll() {
+    for (let entry of this.state.entries) {
+      this.deleteItem(entry.id);
+    }
+    this.setState(prev => {
+      return {
+        entries: []
       };
     });
   }
@@ -171,7 +184,11 @@ class TodoList extends Component {
             handleChange={this.handleChange.bind(this)}
             addItem={this.addItem.bind(this)}
           />
-          <OptionPane hideCompletedItems={this.hideCompletedItems.bind(this)} areHidden={this.state.areHidden} />
+          <OptionPane
+            hideCompletedItems={this.hideCompletedItems.bind(this)}
+            areHidden={this.state.areHidden}
+            deleteAll={this.deleteAll.bind(this)}
+          />
           {itempane}
         </section>
         <footer className="mainfooter">
