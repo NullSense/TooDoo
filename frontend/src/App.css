@@ -276,31 +276,45 @@ input:focus {
   }
 }
 
-.options-button {
+.button {
   -webkit-appearance: none;
   margin: 0 20px 0 20px;
   padding: 2px 6px;
   height: 100%;
   cursor: pointer;
   font: 400 14px "Open Sans";
-  color: var(--main);
-  background-color: var(--p-blue);
   border-style: solid;
   border-radius: 5px;
-  border-color: hsl(158,55%,68%);
   border-image: none;
   transition: 0.2s;
   box-shadow: 0 2px 5px 1px hsl(0, 0%, 70%);
+}
+
+.colorpicker-button {
+  float: right;
+  margin: 0 5% 0 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  position: relative;
+  box-shadow: none;
+}
+
+.options-button {
   visibility: hidden;
+  color: var(--main);
+  background-color: var(--grey2);
+  border-color: var(--grey3);
+  box-shadow: 0 1px 3px 1px hsl(0, 0%, 80%);
+}
+
+.options-button:hover {
+  background-color: var(--grey1);
+  border-color: var(--grey2);
 }
 
 button:focus {
   outline:0;
-}
-
-button:hover {
-  background-color: hsl(158,55%,88%);
-  border-color: hsl(158,55%,78%);
 }
 
 button::-moz-focus-inner {
@@ -343,6 +357,22 @@ button::-moz-focus-inner {
   }
 }
 
+.twitter-picker {
+  z-index: 1;
+  position: absolute;
+  top: 30px;
+  right: 255px;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.twitter-picker.open {
+  visibility: visible;
+  opacity: 1;
+  transition: 0.4s;
+}
+
 hr {
   width: 90%;
   margin-left: auto;
@@ -361,6 +391,7 @@ footer {
 
 .itemfooter {
   font-size: 12px;
+  height: 32px;
   margin: 0 0 0 5%;
 }
 

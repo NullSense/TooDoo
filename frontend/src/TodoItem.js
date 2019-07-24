@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { TwitterPicker } from 'react-color';
 
 class TodoItem extends Component {
   constructor() {
@@ -7,6 +8,10 @@ class TodoItem extends Component {
 
     // create reference to delete-button (for disabling it on click)
     this.btn = React.createRef();
+
+    this.state = {
+      isColorPickerOpen: false
+    };
   }
 
   /**
@@ -14,8 +19,11 @@ class TodoItem extends Component {
    * If equal, don't rerender.
    * @param {object} nextProps the 'future' props of this component
    */
-  shouldComponentUpdate(nextProps) {
-    if (JSON.stringify(this.props) === JSON.stringify(nextProps)) {
+  shouldComponentUpdate(nextProps, nextState) {
+    if (
+      JSON.stringify(this.props) === JSON.stringify(nextProps) &&
+      this.state.isColorPickerOpen === nextState.isColorPickerOpen
+    ) {
       return false;
     } else {
       return true;
@@ -28,7 +36,16 @@ class TodoItem extends Component {
    */
   deleteItem() {
     this.btn.current.setAttribute('disabled', '');
-    this.props.delete();
+    this.props.deleteItem();
+  }
+
+  toggleColorPicker() {
+    this.setState(prev => {
+      return {
+        isColorPickerOpen: !prev.isColorPickerOpen
+      };
+    });
+    console.log(this.state.isColorPickerOpen);
   }
 
   render() {
@@ -40,26 +57,27 @@ class TodoItem extends Component {
       color = this.props.color;
     }
 
+    // determine if colorpicker is open
+    const colorPickerState =
+      this.state.isColorPickerOpen === true ? ' open' : this.state.isColorPickerOpen === false ? ' closed' : '';
+
     // define the color and style of the item
     let style;
     let crossedOut = null;
     switch (color) {
-      case 'default':
-        style = { color: '#36454f', backgroundColor: '#f8f8fa' };
-        break;
-      case 'red':
+      case '#ff6b77':
         style = { color: '#36454f', backgroundColor: 'hsl(355,100%,77%)', borderColor: 'hsl(355,100%,67%)' };
         break;
-      case 'crimson':
+      case '#ffa8a3':
         style = { color: '#36454f', backgroundColor: 'hsl(3,100%,82%)', borderColor: 'hsl(3,100%,72%)' };
         break;
-      case 'orange':
+      case '#ffd4b8':
         style = { color: '#36454f', backgroundColor: 'hsl(24,100%,86%)', borderColor: 'hsl(24,100%,76%)' };
         break;
-      case 'green':
+      case '#dbedc0':
         style = { color: '#36454f', backgroundColor: 'hsl(83,55%,84%)', borderColor: 'hsl(83,55%,74%)' };
         break;
-      case 'blue':
+      case '#a8e6cf':
         style = { color: '#36454f', backgroundColor: 'hsl(158,55%,78%)', borderColor: 'hsl(158,55%,68%)' };
         break;
       case 'checked':
@@ -80,7 +98,7 @@ class TodoItem extends Component {
           <input
             type="checkbox"
             className="checkitem"
-            onClick={this.props.check}
+            onClick={this.props.checkItem}
             defaultChecked={this.props.done ? 'done' : ''}
           />
           <label className="itemlabel" style={crossedOut}>
@@ -89,6 +107,15 @@ class TodoItem extends Component {
         </div>
         <br />
         <hr style={style} />
+        <button className="colorpicker-button button" onClick={this.toggleColorPicker.bind(this)} style={style}>
+          <TwitterPicker
+            className={colorPickerState}
+            color={style.color}
+            colors={['#FF6B77', '#FFA8A3', '#FFD4B8', '#DBEDC0', '#A8E6CF', '#F9F9FB']}
+            onChangeComplete={this.props.changeColor}
+            triangle={'top-right'}
+          />
+        </button>
         <footer className="itemfooter">{this.props.dateTime}</footer>
       </li>
     );
@@ -104,8 +131,9 @@ TodoItem.propTypes = {
   color: PropTypes.string.isRequired,
   done: PropTypes.bool.isRequired,
   dateTime: PropTypes.string.isRequired,
-  delete: PropTypes.func.isRequired,
-  check: PropTypes.func.isRequired
+  deleteItem: PropTypes.func.isRequired,
+  checkItem: PropTypes.func.isRequired,
+  changeColor: PropTypes.func.isRequired
 };
 
 export default TodoItem;

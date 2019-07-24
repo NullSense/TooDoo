@@ -81,6 +81,17 @@ class TodoList extends Component {
     });
   }
 
+  async changeColor(id, color) {
+    axios.patch(process.env.REACT_APP_API_URL + id + '/', {
+      color: color.hex
+    });
+    this.setState(prev => {
+      return {
+        entries: prev.entries.map(entry => (entry.id === id ? { ...entry, color: color.hex } : entry))
+      };
+    });
+  }
+
   /**
    * load Items on mount
    */
@@ -141,8 +152,9 @@ class TodoList extends Component {
                 dateTime={this.parseDateTime(entry.dateTime)}
                 done={entry.done}
                 color={entry.color}
-                delete={this.deleteItem.bind(this, entry.id)}
-                check={this.checkItem.bind(this, entry.id)}
+                deleteItem={this.deleteItem.bind(this, entry.id)}
+                checkItem={this.checkItem.bind(this, entry.id)}
+                changeColor={this.changeColor.bind(this, entry.id)}
               />
             ))
             .reverse()}

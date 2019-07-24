@@ -30,7 +30,7 @@ class OptionPane extends Component {
       <div className={'options' + panestate}>
         <input className={'options-toggle' + panestate} type="checkbox" onClick={this.togglePane.bind(this)} />
         <div className={'options-selection' + panestate}>
-          <button className={'options-button' + panestate} type="submit" onClick={this.props.hideCompletedItems}>
+          <button className={'options-button button' + panestate} type="submit" onClick={this.props.hideCompletedItems}>
             {this.props.areHidden ? 'show finished' : 'hide finished'}
           </button>
         </div>
