@@ -30,8 +30,11 @@ class OptionPane extends Component {
       <div className={'options' + panestate}>
         <input className={'options-toggle' + panestate} type="checkbox" onClick={this.togglePane.bind(this)} />
         <div className={'options-selection' + panestate}>
-          <button className={'options-button' + panestate} type="submit" onClick={this.props.hideCompletedItems}>
+          <button className={'options-button button' + panestate} type="submit" onClick={this.props.hideCompletedItems}>
             {this.props.areHidden ? 'show finished' : 'hide finished'}
+          </button>
+          <button className={'options-button button' + panestate} type="submit" onClick={this.props.deleteAll}>
+            delete all
           </button>
         </div>
       </div>
@@ -42,7 +45,8 @@ class OptionPane extends Component {
 // define prop types for OptionPane
 OptionPane.propTypes = {
   hideCompletedItems: PropTypes.func.isRequired,
-  areHidden: PropTypes.bool.isRequired
+  areHidden: PropTypes.bool.isRequired,
+  deleteAll: PropTypes.func.isRequired
 };
 
 export default OptionPane;

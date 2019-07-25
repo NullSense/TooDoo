@@ -37,6 +37,20 @@ class TodoList extends Component {
   }
 
   /**
+   * callback for custom input element to access global state
+   */
+  async editEntry(id, value) {
+    axios.patch(process.env.REACT_APP_API_URL + id + '/', {
+      entry: value
+    });
+    this.setState(prev => {
+      return {
+        entries: prev.entries.map(entry => (entry.id === id ? { ...entry, entry: value } : entry))
+      };
+    });
+  }
+
+  /**
    * Add item if input isn't empty and do post api call
    */
   async addItem(event) {
@@ -54,7 +68,6 @@ class TodoList extends Component {
 
   /**
    * Delete item and do delete api call
-   *
    */
   async deleteItem(id) {
     await axios.delete(process.env.REACT_APP_API_URL + id);
@@ -66,17 +79,41 @@ class TodoList extends Component {
   }
 
   /**
+   * Delete all ites
+   */
+  async deleteAll() {
+    for (let entry of this.state.entries) {
+      this.deleteItem(entry.id);
+    }
+    this.setState(prev => {
+      return {
+        entries: []
+      };
+    });
+  }
+
+  /**
    * Mark Item as checked and do put api call
    */
   async checkItem(id) {
     const requestedEntry = await axios.get(process.env.REACT_APP_API_URL + id + '/');
-    axios.put(process.env.REACT_APP_API_URL + id + '/', {
-      entry: requestedEntry.data.entry, // TODO: make api call work without entry
+    axios.patch(process.env.REACT_APP_API_URL + id + '/', {
       done: !requestedEntry.data.done
     });
     this.setState(prev => {
       return {
         entries: prev.entries.map(entry => (entry.id === id ? { ...entry, done: !entry.done } : entry))
+      };
+    });
+  }
+
+  async changeColor(id, color) {
+    axios.patch(process.env.REACT_APP_API_URL + id + '/', {
+      color: color.hex
+    });
+    this.setState(prev => {
+      return {
+        entries: prev.entries.map(entry => (entry.id === id ? { ...entry, color: color.hex } : entry))
       };
     });
   }
@@ -141,8 +178,10 @@ class TodoList extends Component {
                 dateTime={this.parseDateTime(entry.dateTime)}
                 done={entry.done}
                 color={entry.color}
-                delete={this.deleteItem.bind(this, entry.id)}
-                check={this.checkItem.bind(this, entry.id)}
+                deleteItem={this.deleteItem.bind(this, entry.id)}
+                checkItem={this.checkItem.bind(this, entry.id)}
+                changeColor={this.changeColor.bind(this, entry.id)}
+                editEntry={this.editEntry.bind(this, entry.id)}
               />
             ))
             .reverse()}
@@ -160,7 +199,11 @@ class TodoList extends Component {
             handleChange={this.handleChange.bind(this)}
             addItem={this.addItem.bind(this)}
           />
-          <OptionPane hideCompletedItems={this.hideCompletedItems.bind(this)} areHidden={this.state.areHidden} />
+          <OptionPane
+            hideCompletedItems={this.hideCompletedItems.bind(this)}
+            areHidden={this.state.areHidden}
+            deleteAll={this.deleteAll.bind(this)}
+          />
           {itempane}
         </section>
         <footer className="mainfooter">

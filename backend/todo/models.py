@@ -3,7 +3,7 @@ from django.db import models
 class Todo(models.Model):
     """The ToDo app database"""
 
-    entry = models.CharField(max_length=80)
+    entry = models.CharField(max_length=80, blank=True)
     done = models.BooleanField(default=False)
     dateTime = models.DateTimeField(auto_now=False, auto_now_add=True)
     color = models.CharField(max_length=7, default='default')
