@@ -56,6 +56,8 @@ CORS_ORIGIN_WHITELIST = [
     #'http://127.0.0.1:3000', # TODO: comment out during deployment
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+
 CORS_URLS_REGEX = r'^/api/.*$'
 
 MIDDLEWARE = [

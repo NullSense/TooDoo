@@ -2,13 +2,11 @@
 from rest_framework import serializers, permissions
 from .models import Todo
 from django.contrib.auth.models import User
-from todo.permissions import IsOwner
 
 #serialize to json
 class TodoSerializer(serializers.ModelSerializer):
-    # add an owner for the todo item
+    permission_classes = [permissions.IsAuthenticated]
     owner = serializers.ReadOnlyField(source='owner.username')
-    permission_classes = [IsOwner]
 
     class Meta:
         model = Todo
@@ -19,8 +17,8 @@ class TodoSerializer(serializers.ModelSerializer):
 Serializes the users that create the todos
 """
 class UserSerializer(serializers.ModelSerializer):
-    todo = serializers.PrimaryKeyRelatedField(many=True, queryset=Todo.objects.all())
     permission_classes = [permissions.IsAuthenticated]
+    todo = serializers.PrimaryKeyRelatedField(many=True, queryset=Todo.objects.all())
 
     class Meta:
         model = User
