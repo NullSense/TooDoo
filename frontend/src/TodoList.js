@@ -4,6 +4,9 @@ import OptionPane from './OptionPane.js';
 import TodoItem from './TodoItem.js';
 import axios from 'axios';
 
+axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+axios.defaults.xsrfCookieName = 'csrftoken';
+
 class TodoList extends Component {
   constructor(props) {
     super(props);
@@ -56,7 +59,7 @@ class TodoList extends Component {
   async addItem(event) {
     event.preventDefault();
     if (this.state.input !== '') {
-      const newEntry = await axios.post(process.env.REACT_APP_API_URL, { entry: this.state.input });
+      const newEntry = await axios.post('/api/todos/', { entry: this.state.input });
       this.setState(prev => {
         return {
           input: '',
@@ -70,7 +73,7 @@ class TodoList extends Component {
    * Delete item and do delete api call
    */
   async deleteItem(id) {
-    await axios.delete(process.env.REACT_APP_API_URL + id);
+    await axios.delete('/api/todos/' + id);
     this.setState(prev => {
       return {
         entries: prev.entries.filter(entry => entry.id !== id)
@@ -96,8 +99,9 @@ class TodoList extends Component {
    * Mark Item as checked and do put api call
    */
   async checkItem(id) {
-    const requestedEntry = await axios.get(process.env.REACT_APP_API_URL + id + '/');
-    axios.patch(process.env.REACT_APP_API_URL + id + '/', {
+    const requestedEntry = await axios.get('/api/todos/' + id + '/');
+    axios.put('/api/todos/' + id + '/', {
+      entry: requestedEntry.data.entry, // TODO: make api call work without entry
       done: !requestedEntry.data.done
     });
     this.setState(prev => {
@@ -122,7 +126,7 @@ class TodoList extends Component {
    * load Items on mount
    */
   async componentDidMount() {
-    const response = await axios.get(process.env.REACT_APP_API_URL);
+    const response = await axios.get('/api/todos/');
 
     // first filter items and check if their id is already contained in state,
     // then map them to valid entries (temp)
@@ -207,7 +211,7 @@ class TodoList extends Component {
           {itempane}
         </section>
         <footer className="mainfooter">
-          <p>toodoo.ml by salsa20 & aerial</p>
+          <p>toodoo.ml by Salsa20 &amp; Aerial</p>
         </footer>
       </div>
     );
