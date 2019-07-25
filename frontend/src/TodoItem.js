@@ -40,7 +40,7 @@ class TodoItem extends Component {
   handleKeyPressed(event) {
     // console.log(event.currentTarget.textContent);
     if (event.key === 'Enter') {
-      this.props.changeEntry(event.currentTarget.textContent);
+      this.props.editEntry(event.currentTarget.textContent);
       this.setState(prev => {
         return { isEditable: !prev.isEditable };
       });
@@ -102,15 +102,16 @@ class TodoItem extends Component {
         break;
     }
 
-    const label = this.state.isEditable && color !== 'checked' ? (
-      <div className="itemlabel" onKeyPress={this.handleKeyPressed.bind(this)} contentEditable>
-        {this.props.entry}
-      </div>
-    ) : (
-      <div className="itemlabel" style={crossedOut} onClick={this.handleClick.bind(this)}>
-        {this.props.entry}
-      </div>
-    );
+    const label =
+      this.state.isEditable && color !== 'checked' ? (
+        <div className="itemlabel" onKeyPress={this.handleKeyPressed.bind(this)} contentEditable>
+          {this.props.entry}
+        </div>
+      ) : (
+        <div className="itemlabel" style={crossedOut} onClick={this.handleClick.bind(this)}>
+          {this.props.entry}
+        </div>
+      );
 
     return (
       <li style={style} className="todoitem">
@@ -155,7 +156,7 @@ TodoItem.propTypes = {
   deleteItem: PropTypes.func.isRequired,
   checkItem: PropTypes.func.isRequired,
   changeColor: PropTypes.func.isRequired,
-  changeEntry: PropTypes.func.isRequired
+  editEntry: PropTypes.func.isRequired
 };
 
 export default TodoItem;

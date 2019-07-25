@@ -36,7 +36,10 @@ class TodoList extends Component {
     });
   }
 
-  async changeEntry(id, value) {
+  /**
+   * callback for custom input element to access global state
+   */
+  async editEntry(id, value) {
     axios.patch(process.env.REACT_APP_API_URL + id + '/', {
       entry: value
     });
@@ -178,7 +181,7 @@ class TodoList extends Component {
                 deleteItem={this.deleteItem.bind(this, entry.id)}
                 checkItem={this.checkItem.bind(this, entry.id)}
                 changeColor={this.changeColor.bind(this, entry.id)}
-                changeEntry={this.changeEntry.bind(this, entry.id)}
+                editEntry={this.editEntry.bind(this, entry.id)}
               />
             ))
             .reverse()}
