@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TwitterPicker } from 'react-color';
+import InputLabel from './InputLabel';
 
 class TodoItem extends Component {
   constructor() {
@@ -10,8 +11,7 @@ class TodoItem extends Component {
     this.btn = React.createRef();
 
     this.state = {
-      isColorPickerOpen: false,
-      isEditable: true
+      isColorPickerOpen: false
     };
   }
 
@@ -37,22 +37,10 @@ class TodoItem extends Component {
     this.props.deleteItem();
   }
 
-  handleKeyPressed(event) {
-    // console.log(event.currentTarget.textContent);
-    if (event.key === 'Enter') {
-      this.props.editEntry(event.currentTarget.textContent);
-      this.setState(prev => {
-        return { isEditable: !prev.isEditable };
-      });
-    }
-  }
-
-  handleClick() {
-    this.setState(prev => {
-      return { isEditable: !prev.isEditable };
-    });
-  }
-
+  /**
+   * show/hide colorpicker
+   *
+   */
   toggleColorPicker() {
     this.setState(prev => {
       return {
@@ -76,7 +64,6 @@ class TodoItem extends Component {
 
     // define the color and style of the item
     let style;
-    let crossedOut = null;
     switch (color) {
       case '#ff6b77':
         style = { color: '#36454f', backgroundColor: 'hsl(355,100%,77%)', borderColor: 'hsl(355,100%,67%)' };
@@ -95,23 +82,11 @@ class TodoItem extends Component {
         break;
       case 'checked':
         style = { color: '#c0c2ce', backgroundColor: '#e5e6eb' };
-        crossedOut = { textDecoration: 'line-through' };
         break;
       default:
         style = { color: '#36454f', backgroundColor: '#f8f8fa' };
         break;
     }
-
-    const label =
-      this.state.isEditable && color !== 'checked' ? (
-        <div className="itemlabel" onKeyPress={this.handleKeyPressed.bind(this)} contentEditable>
-          {this.props.entry}
-        </div>
-      ) : (
-        <div className="itemlabel" style={crossedOut} onClick={this.handleClick.bind(this)}>
-          {this.props.entry}
-        </div>
-      );
 
     return (
       <li style={style} className="todoitem">
@@ -126,7 +101,7 @@ class TodoItem extends Component {
             defaultChecked={this.props.done ? 'done' : ''}
           />
         </div>
-        {label}
+        <InputLabel value={this.props.entry} view="label" editEntry={this.props.editEntry} done={this.props.done} />
         <br />
         <hr style={style} />
         <button className="colorpicker-button button" onClick={this.toggleColorPicker.bind(this)} style={style}>
