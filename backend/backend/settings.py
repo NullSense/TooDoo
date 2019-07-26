@@ -23,12 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False # DISABLE DURING DEV!!!
+DEBUG = True # DISABLE DURING DEV!!!
 
 ALLOWED_HOSTS = [os.getenv('HOST')]
 
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True # TODO: Change to True during deployment
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = False # TODO: Change to True during deployment
+
+CSRF_COOKIE_NAME = "csrftoken"
 
 SECURE_HSTS_SECONDS = 360 # time out non https users
 SECURE_CONTENT_TYPE_NOSNIFF = True # prevent user uploaded file sniffing

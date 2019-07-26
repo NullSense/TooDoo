@@ -13,7 +13,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')), # add login to api
-    path('login/', LoginView.as_view(template_name='login.html'), name="login")
+    path('login/', views.api_login)
 ]
 
 urlpatterns += staticfiles_urlpatterns() # static files for gunicorn
