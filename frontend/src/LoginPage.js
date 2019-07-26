@@ -13,37 +13,41 @@ class LoginPage extends Component {
     this.state = {
       username: '',
       password: '',
-      reroute: false
+      reroute: false // whether to reroute to root
     };
   }
 
-  async submitData() {
-    const request = await axios
+  /**
+   * Call when login form is submitted
+   * Sends user credentials
+   */
+  async handleSubmit(e) {
+    e.preventDefault(); // prevent load refresh
+    await axios
       .post('/login/', {
-        username: this.state.username,
+        username: this.state.username, // submit userdata
         password: this.state.password
       })
-      .then(response => console.log(response))
+      // if user authenticated, reroute
+      .then(response => (response.status === 200 ? this.setState({ reroute: true }) : null))
       .catch(err => {
-        console.log('error:' + err);
+        console.log('error:' + err); // TODO: popup showing unsuccessfull login
       });
-
-    // this.setState({ username: '', password: '' });
   }
 
-  redirect() {
+  /**
+   * If authentication in backend successful, reroute to root
+   */
+  handleRedirect() {
     if (this.state.reroute === true) {
-      return (
-        <div>
-          <Redirect to="/" />;
-        </div>
-      );
+      return <Redirect to="/" />;
     } else {
       return null;
     }
   }
 
   render() {
+    // temp
     const style = {
       position: 'fixed',
       right: 0,
@@ -58,8 +62,8 @@ class LoginPage extends Component {
     };
 
     return (
-      <div style={style}>
-        {this.redirect()}
+      <form onSubmit={this.handleSubmit.bind(this)} style={style}>
+        {this.handleRedirect()}
         <input
           value={this.state.username}
           type="test"
@@ -74,10 +78,10 @@ class LoginPage extends Component {
           onChange={e => this.setState({ password: e.target.value })}
           required
         />
-        <button style={{ marginTop: '10px' }} onClick={this.submitData.bind(this)}>
+        <button type="submit" style={{ marginTop: '10px' }}>
           login
         </button>
-      </div>
+      </form>
     );
   }
 }
