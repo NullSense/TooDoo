@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TodoList from './TodoList';
-import { Route } from 'react-router-dom';
+import { Redirect } from 'react-router';
 import axios from 'axios';
 
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
@@ -12,7 +12,8 @@ class LoginPage extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      reroute: false
     };
   }
 
@@ -22,7 +23,7 @@ class LoginPage extends Component {
         username: this.state.username,
         password: this.state.password
       })
-      .then(this.reRoute())
+      .then(response => console.log(response))
       .catch(err => {
         console.log('error:' + err);
       });
@@ -30,7 +31,17 @@ class LoginPage extends Component {
     // this.setState({ username: '', password: '' });
   }
 
-  async reRoute() {}
+  redirect() {
+    if (this.state.reroute === true) {
+      return (
+        <div>
+          <Redirect to="/" />;
+        </div>
+      );
+    } else {
+      return null;
+    }
+  }
 
   render() {
     const style = {
@@ -48,6 +59,7 @@ class LoginPage extends Component {
 
     return (
       <div style={style}>
+        {this.redirect()}
         <input
           value={this.state.username}
           type="test"
