@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import TodoList from './TodoList';
-import { Route } from 'react-router-dom';
 import axios from 'axios';
 
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
@@ -17,20 +15,15 @@ class LoginPage extends Component {
   }
 
   async submitData() {
-    const request = await axios
+    await axios
       .post('/login/', {
         username: this.state.username,
         password: this.state.password
       })
-      .then(this.reRoute())
       .catch(err => {
         console.log('error:' + err);
       });
-
-    // this.setState({ username: '', password: '' });
   }
-
-  async reRoute() {}
 
   render() {
     const style = {
