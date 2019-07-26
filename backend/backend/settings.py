@@ -25,7 +25,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False # DISABLE DURING DEV!!!
 
-ALLOWED_HOSTS = [os.getenv('HOST')]
+ALLOWED_HOSTS = [os.getenv('HOST'), 'localhost']
 
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'home'
@@ -54,11 +54,6 @@ INSTALLED_APPS = [
     'todo',
     'corsheaders',
     'rest_framework',
-]
-
-CORS_ORIGIN_WHITELIST = [
-    #'http://localhost:3000', # TODO: comment out during deployment
-    #'http://127.0.0.1:3000', # TODO: comment out during deployment
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -136,6 +131,13 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
     ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '300/day',
+        'user': '30/minute',
+    }
 }
 
 

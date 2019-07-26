@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import axios from 'axios';
 
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
@@ -10,7 +11,8 @@ class LoginPage extends Component {
 
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      reroute: false
     };
   }
 
@@ -20,9 +22,24 @@ class LoginPage extends Component {
         username: this.state.username,
         password: this.state.password
       })
+      .then(response => {
+        this.setState({ reroute: true });
+      })
       .catch(err => {
         console.log('error:' + err);
       });
+  }
+
+  redirect() {
+    if (this.state.reroute === true) {
+      return (
+        <div>
+          <Redirect to="/" />;
+        </div>
+      );
+    } else {
+      return null;
+    }
   }
 
   render() {
@@ -41,6 +58,7 @@ class LoginPage extends Component {
 
     return (
       <div style={style}>
+        {this.redirect()}
         <input
           value={this.state.username}
           type="test"
