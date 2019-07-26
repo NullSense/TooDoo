@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TodoList from './TodoList';
 import { Redirect } from 'react-router';
 import axios from 'axios';
 

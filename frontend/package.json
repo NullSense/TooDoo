@@ -4,6 +4,7 @@
   "proxy": "http://127.0.0.1:8000",
   "private": true,
   "dependencies": {
+    "babel-eslint": "^10.0.2",
     "husky": "^3.0.0",
     "lint-staged": "^9.2.0",
     "react": "^16.8.6",
