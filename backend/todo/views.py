@@ -11,9 +11,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework import status
+from rest_framework.throttling import UserRateThrottle
 
 class TodoView(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
+    throttle_classes = [UserRateThrottle]
     serializer_class = TodoSerializer # serialize to json
     queryset = Todo.objects.all() # get all objects in entry
 
@@ -35,14 +37,16 @@ class TodoView(viewsets.ModelViewSet):
             serializer.save(owner=self.request.user)
 
 class UserList(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAdminUser] # only the admin should be able to view the user table
+    throttle_classes = [UserRateThrottle]
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAdminUser] # only the admin should be able to view the user table
 
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def api_login(request):
+    throttle_classes = [UserRateThrottle]
     username = request.data['username']
     password = request.data['password']
     user = authenticate(request, username=username, password=password)

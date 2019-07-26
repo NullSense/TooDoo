@@ -12,7 +12,6 @@ class TodoSerializer(serializers.ModelSerializer):
         model = Todo
         fields = ('id', 'owner', 'entry', 'done', 'dateTime', 'color')
 
-
 """
 Serializes the users that create the todos
 """
