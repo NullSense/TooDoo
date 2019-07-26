@@ -23,12 +23,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # DISABLE DURING DEV!!!
+DEBUG = False # DISABLE DURING DEV!!!
 
 ALLOWED_HOSTS = [os.getenv('HOST'), 'localhost']
 
-CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_SECURE = False # TODO: Change to True during deployment
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True # TODO: Change to True during deployment
 
 CSRF_COOKIE_NAME = "csrftoken"
 

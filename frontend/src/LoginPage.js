@@ -28,8 +28,6 @@ class LoginPage extends Component {
       .catch(err => {
         console.log('error:' + err);
       });
-
-    // this.setState({ username: '', password: '' });
   }
 
   redirect() {
