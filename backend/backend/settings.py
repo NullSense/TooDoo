@@ -27,8 +27,13 @@ DEBUG = False # DISABLE DURING DEV!!!
 
 ALLOWED_HOSTS = [os.getenv('HOST')]
 
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True # TODO: Change to True during deployment
+
+CSRF_COOKIE_NAME = "csrftoken"
 
 SECURE_HSTS_SECONDS = 360 # time out non https users
 SECURE_CONTENT_TYPE_NOSNIFF = True # prevent user uploaded file sniffing

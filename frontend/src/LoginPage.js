@@ -1,19 +1,28 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
+axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
+axios.defaults.xsrfCookieName = 'csrftoken';
+
 class LoginPage extends Component {
   constructor() {
     super();
 
     this.state = {
       username: '',
-      password: '',
-    }
+      password: ''
+    };
   }
 
   async submitData() {
-    // const request = await axios.post(process.env.REACT_APP_API_URL, { username: this.username, password: this.password})
-    this.setState({ username: '', password: '' })
+    await axios
+      .post('/login/', {
+        username: this.state.username,
+        password: this.state.password
+      })
+      .catch(err => {
+        console.log('error:' + err);
+      });
   }
 
   render() {
@@ -32,9 +41,23 @@ class LoginPage extends Component {
 
     return (
       <div style={style}>
-        <input type="test" placeholder="username" onChange={e => this.setState({ username: e.target.value })} required/>
-        <input type="test" placeholder="login" onChange={e => this.setState({ password: e.target.value })} required/>
-        <button style={{ marginTop: '10px' }} onClick={ this.submitData.bind(this) }>login</button>
+        <input
+          value={this.state.username}
+          type="test"
+          placeholder="username"
+          onChange={e => this.setState({ username: e.target.value })}
+          required
+        />
+        <input
+          value={this.state.password}
+          type="test"
+          placeholder="login"
+          onChange={e => this.setState({ password: e.target.value })}
+          required
+        />
+        <button style={{ marginTop: '10px' }} onClick={this.submitData.bind(this)}>
+          login
+        </button>
       </div>
     );
   }
