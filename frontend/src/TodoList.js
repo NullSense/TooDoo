@@ -6,6 +6,7 @@ import axios from 'axios';
 
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.withCredentials = true;
 
 class TodoList extends Component {
   constructor(props) {
@@ -43,7 +44,7 @@ class TodoList extends Component {
    * callback for custom input element to access global state
    */
   async editEntry(id, value) {
-    axios.patch(process.env.REACT_APP_API_URL + id + '/', {
+    axios.patch('/api/todos/' + id + '/', {
       entry: value
     });
     this.setState(prev => {

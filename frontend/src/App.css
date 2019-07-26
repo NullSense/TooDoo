@@ -302,6 +302,8 @@ input:focus {
   border-radius: 50%;
   position: relative;
   box-shadow: none;
+  /* color: black !important; */
+  /* background-color: black !important; */
 }
 
 .options-button {

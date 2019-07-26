@@ -1,8 +1,8 @@
 import React from 'react';
-// import TODOList from './TODOList.js';
 import TodoList from './TodoList.js';
-// import LoginPage from './LoginPage.js';
-// import './App.css';
+import LoginPage from './LoginPage.js';
+import Registration from './Registration.js';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import './App.css';
 
 /**
@@ -10,11 +10,12 @@ import './App.css';
  */
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <TodoList />
-      </header>
-    </div>
+    <Router>
+      <header className="App-header"></header>
+      <Route exact path="/" component={TodoList} />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/register" component={Registration} />
+    </Router>
   );
 }
 
