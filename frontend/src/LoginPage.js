@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import TodoList from './TodoList';
 import { Redirect } from 'react-router';
 import axios from 'axios';
 
@@ -18,12 +17,14 @@ class LoginPage extends Component {
   }
 
   async submitData() {
-    const request = await axios
+    await axios
       .post('/login/', {
         username: this.state.username,
         password: this.state.password
       })
-      .then(response => console.log(response))
+      .then(response => {
+        this.setState({ reroute: true });
+      })
       .catch(err => {
         console.log('error:' + err);
       });

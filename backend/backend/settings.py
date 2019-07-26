@@ -23,14 +23,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # DISABLE DURING DEV!!!
+DEBUG = False # DISABLE DURING DEV!!!
 
 ALLOWED_HOSTS = [os.getenv('HOST')]
 
-CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_SECURE = False # TODO: Change to True during deployment
+CSRF_COOKIE_SECURE = True # TODO: Change to True during deployment
+SESSION_COOKIE_SECURE = True # TODO: Change to True during deployment
 
-CSRF_COOKIE_NAME = "csrftoken"
+CSRF_COOKIE_NAME = "csrftoken" # csrf token name to be passed on to React
 
 SECURE_HSTS_SECONDS = 360 # time out non https users
 SECURE_CONTENT_TYPE_NOSNIFF = True # prevent user uploaded file sniffing
@@ -51,11 +51,6 @@ INSTALLED_APPS = [
     'todo',
     'corsheaders',
     'rest_framework',
-]
-
-CORS_ORIGIN_WHITELIST = [
-    #'http://localhost:3000', # TODO: comment out during deployment
-    #'http://127.0.0.1:3000', # TODO: comment out during deployment
 ]
 
 CORS_ALLOW_CREDENTIALS = True
