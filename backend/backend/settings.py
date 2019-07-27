@@ -23,12 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # DISABLE DURING DEV!!!
+DEBUG = False # DISABLE DURING DEV!!!
 
-ALLOWED_HOSTS = [os.getenv('HOST')]
+ALLOWED_HOSTS = [os.getenv('HOST'), 'localhost']
 
-CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_SECURE = False # TODO: Change to True during deployment
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True # TODO: Change to True during deployment
 
 CSRF_COOKIE_NAME = "csrftoken"
 
@@ -54,8 +54,6 @@ INSTALLED_APPS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    #'http://localhost:3000', # TODO: comment out during deployment
-    #'http://127.0.0.1:3000', # TODO: comment out during deployment
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -133,8 +131,34 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
     ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '300/day',
+        'user': '30/minute',
+    }
 }
 
+# TODO: remove, this is for testing
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'registration'),
+        ],
+        'OPTIONS': {
+            'context_processors': [
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ]
+        }
+    },
+]
+
+ACCOUNT_ACTIVATION_DAYS = 7
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -149,6 +173,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+LOGIN_REDIRECT_URL = '/'
+
+# to run locally: python -m smtpd -n -c DebuggingServer localhost:1025
+# EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = 'localhost', 1025, None, None
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
