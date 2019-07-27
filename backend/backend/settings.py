@@ -135,6 +135,25 @@ REST_FRAMEWORK = {
     ],
 }
 
+# TODO: remove, this is for testing
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'templates', 'registration'),
+        ],
+        'OPTIONS': {
+            'context_processors': [
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+            ]
+        }
+    },
+]
+
+ACCOUNT_ACTIVATION_DAYS = 7
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -149,6 +168,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 465
+# EMAIL_USE_TLS = True
+
+LOGIN_REDIRECT_URL = '/'
+
+# to run locally: python -m smtpd -n -c DebuggingServer localhost:1025
+EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = 'localhost', 1025, None, None
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

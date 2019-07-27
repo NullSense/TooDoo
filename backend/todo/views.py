@@ -9,8 +9,10 @@ from rest_framework import permissions
 from django.contrib.auth import authenticate, login
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
+from django.http import HttpResponse
 from rest_framework.permissions import AllowAny
 from rest_framework import status
+from django.template import loader
 
 class TodoView(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
@@ -41,8 +43,8 @@ class UserList(viewsets.ModelViewSet):
 
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
-def api_login(request):
+def login(request):
+    permission_classes = [permissions.AllowAny]
     username = request.data['username']
     password = request.data['password']
     user = authenticate(request, username=username, password=password)
@@ -50,3 +52,8 @@ def api_login(request):
         login(request, user)
         return Response(status=status.HTTP_200_OK)
     return Response(status=status.HTTP_400_BAD_REQUEST)
+
+def index(request):
+    template = loader.get_template('index.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
