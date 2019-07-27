@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoList from './TodoList.js';
 import LoginPage from './LoginPage.js';
-//import Registration from './Registration.js';
+import Registration from './Registration.js';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 

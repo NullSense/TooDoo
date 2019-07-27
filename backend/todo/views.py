@@ -12,9 +12,10 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic import View
 from rest_framework.response import Response
+from django.http import HttpResponse
 from rest_framework.permissions import AllowAny
 from rest_framework import status
-from rest_framework.throttling import UserRateThrottle
+from django.template import loader
 
 class TodoView(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
@@ -55,9 +56,8 @@ class HomeView(View):
         return super(HomeView, self).dispatch(request, *args, **kwargs)
 
 @api_view(['POST'])
-@permission_classes([AllowAny])
-def api_login(request):
-    throttle_classes = [UserRateThrottle]
+def login(request):
+    permission_classes = [permissions.AllowAny]
     username = request.data['username']
     password = request.data['password']
     user = authenticate(request, username=username, password=password)
@@ -65,3 +65,8 @@ def api_login(request):
         login(request, user)
         return Response(status=status.HTTP_200_OK)
     return Response(status=status.HTTP_400_BAD_REQUEST)
+
+def index(request):
+    template = loader.get_template('index.html')
+    context = {}
+    return HttpResponse(template.render(context, request))
