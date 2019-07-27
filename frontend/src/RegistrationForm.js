@@ -10,6 +10,10 @@ axios.defaults.xsrfCookieName = 'csrftoken';
 
 // define the validation schema for the input fields
 const validationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email('enter a valid email')
+    .required(),
   username: yup
     .string()
     .min(4, 'username must be at least 6 characters') //temp: 4 -> 6
@@ -19,40 +23,45 @@ const validationSchema = yup.object().shape({
     .string()
     .min(4, 'password must be at least 8 characters') //temp: 4 -> 6
     .max(32, 'password is too long')
-    .required()
+    .required(),
+  passwordConf: yup.string().oneOf([yup.ref('password'), null], 'passwords must match')
 });
 
 /**
- * LoginForm built from Formik
+ * RegistrationForm built from Formik
  */
-const LoginForm = props => {
-  LoginForm.propTypes = {
+const RegistrationForm = props => {
+  RegistrationForm.propTypes = {
     history: PropTypes.object
   };
 
   const handleSubmit = async (values, { resetForm, setStatus, setSubmitting }) => {
-    setSubmitting(true);
-    const { history } = props;
-    await axios // make api call to authenticate
-      .post('/login/', {
-        username: values.username,
-        password: values.password
-      })
-      .then(response => response.status === 200 && history.push('/')) // if response successfull, reroute
-      .catch(err => {
-        setStatus('username and/or password were incorrect');
-        setSubmitting(false);
-      });
+    setSubmitting(false);
+    // const { history } = props;
+    // await axios // make api call to authenticate
+    //   .post('/login/', {
+    //     username: values.username,
+    //     password: values.password
+    //   })
+    //   .then(response => response.status === 200 && history.push('/')) // if response successfull, reroute
+    //   .catch(err => {
+    //     setStatus('username and/or password were incorrect');
+    //     setSubmitting(false);
+    //   });
     // resetForm(); // clear fields
   };
 
   return (
     <Formik
-      initialValues={{ username: '', password: '' }}
+      initialValues={{ email: '', username: '', password: '' }}
       validationSchema={validationSchema}
       onSubmit={handleSubmit}
       render={({ errors, touched, status, handleSubmit, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>
+          <label>
+            <Field type="email" name="email" placeholder="email" />
+            {touched.email && errors.email}
+          </label>
           <label>
             <Field type="text" name="username" placeholder="username" />
             {touched.username && errors.username}
@@ -60,6 +69,10 @@ const LoginForm = props => {
           <label>
             <Field type="password" name="password" placeholder="password" />
             {touched.password && errors.password}
+          </label>
+          <label>
+            <Field type="password" name="passwordConf" placeholder="repeat password" />
+            {touched.passwordConf && errors.passwordConf}
           </label>
           <button type="submit" disabled={isSubmitting}>
             Submit
@@ -71,5 +84,5 @@ const LoginForm = props => {
   );
 };
 
-const LoginFormWithRouter = withRouter(LoginForm); // bound react router, to access history
+const LoginFormWithRouter = withRouter(RegistrationForm); // bound react router, to access history
 export default LoginFormWithRouter;
