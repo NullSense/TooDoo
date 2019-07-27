@@ -35,9 +35,9 @@ const RegistrationForm = props => {
     history: PropTypes.object
   };
 
-  const handleSubmit = async (values, { resetForm, setStatus, setSubmitting }) => {
-    setSubmitting(false);
-    // const { history } = props;
+  const handleSubmit = async (values, { setStatus, setSubmitting }) => {
+    const { history } = props;
+    history.push('/login');
     // await axios // make api call to authenticate
     //   .post('/login/', {
     //     username: values.username,
@@ -48,7 +48,6 @@ const RegistrationForm = props => {
     //     setStatus('username and/or password were incorrect');
     //     setSubmitting(false);
     //   });
-    // resetForm(); // clear fields
   };
 
   return (

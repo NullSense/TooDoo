@@ -30,8 +30,7 @@ const LoginForm = props => {
     history: PropTypes.object
   };
 
-  const handleSubmit = async (values, { resetForm, setStatus, setSubmitting }) => {
-    setSubmitting(true);
+  const handleSubmit = async (values, { setStatus, setSubmitting }) => {
     const { history } = props;
     await axios // make api call to authenticate
       .post('/login/', {
@@ -43,7 +42,6 @@ const LoginForm = props => {
         setStatus('username and/or password were incorrect');
         setSubmitting(false);
       });
-    // resetForm(); // clear fields
   };
 
   return (
