@@ -23,12 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True # DISABLE DURING DEV!!!
+DEBUG = False # DISABLE DURING DEV!!!
 
 ALLOWED_HOSTS = [os.getenv('HOST')]
 
-CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_SECURE = False # TODO: Change to True during deployment
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True # TODO: Change to True during deployment
 
 CSRF_COOKIE_NAME = "csrftoken"
 
@@ -54,8 +54,6 @@ INSTALLED_APPS = [
 ]
 
 CORS_ORIGIN_WHITELIST = [
-    #'http://localhost:3000', # TODO: comment out during deployment
-    #'http://127.0.0.1:3000', # TODO: comment out during deployment
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -168,14 +166,14 @@ USE_L10N = True
 
 USE_TZ = True
 
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 465
-# EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 LOGIN_REDIRECT_URL = '/'
 
 # to run locally: python -m smtpd -n -c DebuggingServer localhost:1025
-EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = 'localhost', 1025, None, None
+# EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = 'localhost', 1025, None, None
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
