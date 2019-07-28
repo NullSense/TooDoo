@@ -1,11 +1,33 @@
 {% extends "base.html" %}
 {% load i18n %}
-
+{% block title %}Signup{% endblock %}
 {% block content %}
-<form method="post" action=".">
-  {% csrf_token %}
-  {{ form.as_p }}
+<div class="row">
+    <aside class="col-sm-4">
+    </aside>
+    <!-- col.// -->
+    <aside class="col-sm-4">
+        <h2>Signup</h2>
+        <div class="card">
+            <article class="card-body">
+                <form method="post">
+                    {% csrf_token %} {% for field in form %}
+                    <p>
+                        {{ field.label_tag }}
+                        <br> {{ field }} {% for error in field.errors %}
+                        <p style="color: red">{{ error }}</p>
+                        {% endfor %}
+                    </p>
+                    {% endfor %}
+                    <button type="submit">Sign up</button>
+                </form>
+            </article>
+        </div>
+    </aside>
 
-  <input type="submit" value="{% trans 'Submit' %}" />
-</form>
+    <aside class="col-sm-4">
+
+    </aside>
+    <!-- col.// -->
+</div>
 {% endblock %}
