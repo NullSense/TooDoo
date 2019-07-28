@@ -197,6 +197,9 @@ class TodoList extends Component {
       <div>
         <header>
           <h1>TooDoo.ml</h1>
+          <a href="/accounts/logout/">logout</a>
+          <a href="/accounts/login/">login</a>
+          <a href="/accounts/register/">register</a>
         </header>
         <section className="mainpane">
           <InputBar
