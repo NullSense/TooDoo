@@ -195,11 +195,9 @@ class TodoList extends Component {
 
     return (
       <div>
+        <AccountBar />
         <header>
           <h1>TooDoo.ml</h1>
-          <a href="/accounts/logout/">logout</a>
-          <a href="/accounts/login/">login</a>
-          <a href="/accounts/register/">register</a>
         </header>
         <section className="mainpane">
           <InputBar
@@ -221,5 +219,21 @@ class TodoList extends Component {
     );
   }
 }
+
+const AccountBar = props => {
+  return (
+    <div className="account-bar">
+      <button className="account-button button">
+        <a href="/accounts/logout/">logout</a>
+      </button>
+      <button className="account-button button">
+        <a href="/accounts/login/">login</a>
+      </button>
+      <button className="account-button button">
+        <a href="/accounts/register/">register</a>
+      </button>
+    </div>
+  );
+};
 
 export default TodoList;
