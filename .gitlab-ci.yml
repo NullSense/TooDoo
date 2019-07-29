@@ -77,7 +77,7 @@ production:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - rsync -ave "ssh -p $VPS_PORT_PRODUCTION" --delete frontend/build $VPS_USER@$VPS_IP_PRODUCTION:/home/$VPS_USER/docker/
-    - ssh -p $VPS_PORT_PRODUCTION $VPS_USER@$VPS_IP_PRODUCTION "cd docker/ && echo $ENV_STAGING >> .env && docker-compose down && docker-compose up --build -d"
+    - ssh -p $VPS_PORT_PRODUCTION $VPS_USER@$VPS_IP_PRODUCTION "cd docker/ && cat $ENV_STAGING >> .env && docker-compose down && docker-compose up --build -d"
   cache: {}
   only:
     - master
