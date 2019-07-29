@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { TwitterPicker } from 'react-color';
+import { Icon } from 'semantic-ui-react';
 import InputLabel from './InputLabel';
 
 class TodoItem extends Component {
@@ -81,10 +82,10 @@ class TodoItem extends Component {
         style = { color: '#36454f', backgroundColor: 'hsl(158,55%,78%)', borderColor: 'hsl(158,55%,68%)' };
         break;
       case 'checked':
-        style = { color: '#c0c2ce', backgroundColor: '#e5e6eb' };
+        style = { color: '#c0c2ce', backgroundColor: '#e5e6eb', borderColor: '#afafaf' };
         break;
       default:
-        style = { color: '#36454f', backgroundColor: '#f8f8fa' };
+        style = { color: '#36454f', backgroundColor: '#f8f8fa', borderColor: '#c0c2ce' };
         break;
     }
 
@@ -105,6 +106,7 @@ class TodoItem extends Component {
         <br />
         <hr style={style} />
         <button className="colorpicker-button button" onClick={this.toggleColorPicker.bind(this)} style={style}>
+          <Icon name="paint brush" />
           <TwitterPicker
             className={colorPickerState}
             color={style.color}
