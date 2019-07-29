@@ -3,6 +3,6 @@ This is your activation key for {{ site }} for user {{ user }}:
 
 Please click this link to activate your account.
 
-{{ protocol }}://{{ site }}/accounts/activate/{{ activation_key }}
+{{ scheme }}://{{ site }}/accounts/activate/{{ activation_key }}
 
 This will key will expire in {{ expiration_days }} days.
