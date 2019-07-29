@@ -175,7 +175,6 @@ class TodoList extends Component {
     const itempane =
       this.state.entries.length !== 4 ? (
         <ul className="itempane">
-          <TodoItem />
           {currEntries
             .map(entry => (
               <TodoItem
