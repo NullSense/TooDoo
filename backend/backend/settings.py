@@ -27,6 +27,10 @@ DJANGO_ENV = os.getenv('DJANGO_ENV', 'production').lower()
 if DJANGO_ENV == 'development':
     DEBUG = True
     ALLOWED_HOSTS = ['*']
+    CORS_ORIGIN_WHITELIST = [
+        'http://127.0.0.1:3000',
+        'http://localhost:3000',
+    ]
     CSRF_COOKIE_SECURE = False
     SESSION_COOKIE_SECURE = False
 
@@ -70,8 +74,6 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
-CORS_ORIGIN_WHITELIST = [
-]
 
 CORS_ALLOW_CREDENTIALS = True
 
@@ -90,24 +92,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'backend.urls'
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
 WSGI_APPLICATION = 'backend.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -123,7 +108,7 @@ DATABASES = {
         'USER': POSTGRES_USER,
         'PASSWORD': POSTGRES_PASSWORD,
         'HOST': POSTGRES_HOST,
-        'PORT': '5432',
+        'PORT': POSTGRES_PORT,
     }
 }
 

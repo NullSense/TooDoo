@@ -47,26 +47,6 @@ class UserList(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-@method_decorator([login_required], name='dispatch')
-class HomeView(View):
-    model = User
-
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect('login')
-        return super(HomeView, self).dispatch(request, *args, **kwargs)
-
-@api_view(['POST'])
-def login(request):
-    permission_classes = [permissions.AllowAny]
-    username = request.data['username']
-    password = request.data['password']
-    user = authenticate(request, username=username, password=password)
-    if user is not None:
-        login(request, user)
-        return Response(status=status.HTTP_200_OK)
-    return Response(status=status.HTTP_400_BAD_REQUEST)
-
 def index(request):
     template = loader.get_template('index.html')
     context = {}
