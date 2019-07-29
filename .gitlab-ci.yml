@@ -10,14 +10,14 @@ cache:
     - node_modules/
 
 # unit testing, lint and dependency install
-# test:
-#   stage: test
-#   script:
-#     - cd frontend/
-#     - npm install --progress=false #install dependencies
-#     - node_modules/eslint/bin/eslint.js src/ # run linter
-#     - CI=true npm test -- --coverage # run tests and output coverage
-#   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/ # regex for getting coverage percentage as int
+test:
+  stage: test
+  script:
+    - cd frontend/
+    - npm install --progress=false #install dependencies
+    - node_modules/eslint/bin/eslint.js src/ # run linter
+    - CI=true npm test -- --coverage # run tests and output coverage
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/ # regex for getting coverage percentage as int
 
 # install dependencies and build for deployment
 build:

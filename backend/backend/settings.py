@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
-DJANGO_ENV = os.getenv('DJANGO_ENV', 'production').lower()
+DJANGO_ENV = os.getenv('DJANGO_ENV')
 
 # these env vars should be set in your django venv activate file or .env in production
 if DJANGO_ENV == 'development':
