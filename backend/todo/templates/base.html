@@ -3,34 +3,32 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="{{ STATIC_URL }}style.css" />
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
     <title>{% block title %}User test{% endblock %}</title>
 </head>
 
 <body>
-    <div id="header">
-    {% block header %}
-    <a href="{% url 'index' %}">{% trans "Home" %}</a> |
-
-    {% if user.is_authenticated %}
-        {% trans "Logged in" %}: {{ user.username }}
-        (<a href="{% url 'logout' %}">{% trans "Log out" %}</a> |
-        <a href="{% url 'password_change' %}">{% trans "Change password" %}</a>)
-    {% else %}
-       <a href="{% url 'login' %}">{% trans "Log in" %}</a>
-    {% endif %}
-    <hr />
-    {% endblock %}
+    <div class="container" id="header">
+      <br>  <p class="text-center"> Django Authentication and Autherization</p>
+        {% block header %}
+        <a href="{% url 'index' %}">{% trans "Home" %}</a> | {% if user.is_authenticated %} {% trans "Logged in" %}: {{ user.username }} (
+        <a href="{% url 'logout' %}">{% trans "Log out" %}</a> |
+        <a href="{% url 'password_change' %}">{% trans "Change password" %}</a>) {% else %}
+        <a href="{% url 'login' %}">{% trans "Log in" %}</a> {% endif %}
+        <hr /> {% endblock %}
     </div>
 
-    <div id="content">
-    {% block content %}{% endblock %}
+
+    <div class="text-center" id="content">
+        {% block content %}{% endblock %}
     </div>
 
     <div id="footer">
-    {% block footer %}
-        <hr />
-    {% endblock %}
+        {% block footer %}
+        <hr /> {% endblock %}
     </div>
 </body>
 

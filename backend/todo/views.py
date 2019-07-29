@@ -16,6 +16,7 @@ from django.http import HttpResponse
 from rest_framework.permissions import AllowAny
 from rest_framework import status
 from django.template import loader
+from rest_framework.throttling import UserRateThrottle
 
 class TodoView(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]

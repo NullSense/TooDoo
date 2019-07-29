@@ -18,7 +18,6 @@ urlpatterns = [
     url(r'^accounts/', include('django.contrib.auth.urls')),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls')), # add login to api
-    # path('login/', views.login),
 ]
 
 urlpatterns += staticfiles_urlpatterns() # static files for gunicorn

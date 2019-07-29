@@ -45,9 +45,23 @@ h1 {
   cursor: default;
 }
 
+a {
+  color: var(--main);
+  text-decoration: none;
+}
+
 input:focus {
   outline-offset: 0;
   outline: none;
+}
+
+.account-bar {
+  margin: 0 0 0 0;
+  position: static;
+  /* left: 0px; */
+  /* display: flex; */
+  /* top: calc(0.05*vh); */
+  /* left: calc(0.05*vw); */
 }
 
 .mainpane {
@@ -313,7 +327,14 @@ input:focus {
   box-shadow: 0 1px 3px 1px hsl(0, 0%, 80%);
 }
 
-.options-button:hover {
+.account-button {
+  color: var(--main);
+  background-color: var(--grey2);
+  border-color: var(--grey3);
+  box-shadow: 0 1px 3px 1px hsl(0, 0%, 80%);
+}
+
+button:hover {
   background-color: var(--grey1);
   border-color: var(--grey2);
 }

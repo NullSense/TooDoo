@@ -21,14 +21,31 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
+DJANGO_ENV = os.getenv('DJANGO_ENV', 'production').lower()
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False # DISABLE DURING DEV!!!
+# these env vars should be set in your django venv activate file or .env in production
+if DJANGO_ENV == 'development':
+    DEBUG = True
+    ALLOWED_HOSTS = ['*']
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
 
-ALLOWED_HOSTS = [os.getenv('HOST'), 'localhost']
-
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True # TODO: Change to True during deployment
+    # to run email locally: python -m smtpd -n -c DebuggingServer localhost:1025
+    EMAIL_HOST = 'localhost'
+    EMAIL_PORT = '1025'
+    EMAIL_HOST_USER = None
+    EMAIL_HOST_PASSWORD = None
+else: # deployment env
+    DEBUG = False
+    ALLOWED_HOSTS = [os.getenv('HOST')]
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+    # email
+    EMAIL_HOST = os.getenv('EMAIL_HOST')
+    EMAIL_PORT = os.getenv('EMAIL_PORT')
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
 
 CSRF_COOKIE_NAME = "csrftoken"
 
@@ -42,13 +59,13 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True # prevent attack on subdomain from insecur
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'todo',
+    'django.contrib.admin',
     'corsheaders',
     'rest_framework',
 ]
@@ -98,6 +115,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 POSTGRES_USER = os.getenv('POSTGRES_USER')
 POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
 POSTGRES_HOST = os.getenv('POSTGRES_HOST')
+POSTGRES_PORT = os.getenv('POSTGRES_PORT')
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -173,14 +191,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
 LOGIN_REDIRECT_URL = '/'
-
-# to run locally: python -m smtpd -n -c DebuggingServer localhost:1025
-# EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD = 'localhost', 1025, None, None
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
