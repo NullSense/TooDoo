@@ -84,6 +84,8 @@
     "prettier": "1.18.2",
     "prettier-eslint": "^9.0.0",
     "react-color": "^2.17.3",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.87.3",
     "yup": "^0.27.0"
   }
 }

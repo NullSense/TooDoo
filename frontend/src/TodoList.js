@@ -3,6 +3,7 @@ import InputBar from './InputBar.js';
 import OptionPane from './OptionPane.js';
 import TodoItem from './TodoItem.js';
 import axios from 'axios';
+import 'semantic-ui-css/semantic.min.css';
 
 axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
 axios.defaults.xsrfCookieName = 'csrftoken';
@@ -172,8 +173,9 @@ class TodoList extends Component {
 
     // specify itempane, which does not get rendered if there are no items
     const itempane =
-      this.state.entries.length !== 0 ? (
+      this.state.entries.length !== 4 ? (
         <ul className="itempane">
+          <TodoItem />
           {currEntries
             .map(entry => (
               <TodoItem

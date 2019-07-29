@@ -316,6 +316,7 @@ input:focus {
   border-radius: 50%;
   position: relative;
   box-shadow: none;
+  padding: 0 0 0 0;
 }
 
 .options-button {
