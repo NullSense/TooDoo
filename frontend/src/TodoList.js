@@ -114,7 +114,7 @@ class TodoList extends Component {
   }
 
   async changeColor(id, color) {
-    axios.patch(process.env.REACT_APP_API_URL + id + '/', {
+    axios.patch('/api/todos/' + id + '/', {
       color: color.hex
     });
     this.setState(prev => {
