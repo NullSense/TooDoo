@@ -10,14 +10,14 @@ cache:
     - node_modules/
 
 # unit testing, lint and dependency install
-# test:
-#   stage: test
-#   script:
-#     - cd frontend/
-#     - npm install --progress=false #install dependencies
-#     - node_modules/eslint/bin/eslint.js src/ # run linter
-#     - CI=true npm test -- --coverage # run tests and output coverage
-#   coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/ # regex for getting coverage percentage as int
+#test:
+  #stage: test
+  #script:
+    #- cd frontend/
+    #- npm install --progress=false #install dependencies
+    #- node_modules/eslint/bin/eslint.js src/ # run linter
+    #- CI=true npm test -- --coverage # run tests and output coverage
+  #coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/ # regex for getting coverage percentage as int
 
 # install dependencies and build for deployment
 build:
@@ -77,11 +77,11 @@ production:
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
   script:
     - rsync -ave "ssh -p $VPS_PORT_PRODUCTION" --delete frontend/build $VPS_USER@$VPS_IP_PRODUCTION:/home/$VPS_USER/docker/
-    - ssh -p $VPS_PORT_PRODUCTION $VPS_USER@$VPS_IP_PRODUCTION "cd docker/ && docker-compose down && docker-compose up
-      -d"
+    - ssh -p $VPS_PORT_PRODUCTION $VPS_USER@$VPS_IP_PRODUCTION "cd docker/ && cat $ENV_STAGING >> .env && docker-compose down && docker-compose up --build -d"
   cache: {}
   only:
     - master
+    - server
   environment:
     name: production
     url: http://$VPS_IP_PRODUCTION/
