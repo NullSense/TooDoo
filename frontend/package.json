@@ -1,7 +1,7 @@
 {
   "name": "todo-list",
   "version": "0.2.0",
-  "proxy": "https://toodoo.ml",
+  "proxy": "http://127.0.0.1:8000",
   "private": true,
   "dependencies": {
     "husky": "^3.0.0",
