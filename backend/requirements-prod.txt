@@ -1,8 +1,8 @@
-Django==3.1.13
+Django==3.2.15
 django-cors-headers==3.0.2
 djangorestframework==3.11.2
 gunicorn==19.10.0
 psycopg2-binary==2.8.3
-django-registration==3.0.1
+django-registration==3.1.2
 pytz==2019.1
-sqlparse==0.3.0
+sqlparse==0.4.2
